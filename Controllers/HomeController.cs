@@ -22,7 +22,18 @@ namespace MyDictionary.Controllers
         {
             return View();
         }
-        public IActionResult Tasks()
+        
+        public IActionResult CommonTask()
+        {
+            return View();
+        }
+        
+        public IActionResult HomeTask()
+        {
+            return View();
+        }
+        
+        public IActionResult EditTask()
         {
             return View();
         }
