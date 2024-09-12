@@ -2,9 +2,19 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">My dictionary</h1>
-    <p>Тут будет функционал использования своего пользовательского словаря.</p>
+<div class="homePage">
     
+    @await Html.PartialAsync("HomeButtonPartial")
 
-</div>
+    <div class="homeHeader">
+        
+        <h1 class="title">My dictionary</h1>
+        <hr class="horizontal-line" /><br />
+
+        <div class="displayFlex row">
+            
+            <p>Тут будет функционал использования своего пользовательского словаря.</p>
+        </div>
+    </div>
+
+ </div>
