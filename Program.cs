@@ -1,3 +1,6 @@
+using MyDictionary.Interfaces;
+using MyDictionary.Repository;
+
 namespace MyDictionary
 {
     public class Program
@@ -8,6 +11,7 @@ namespace MyDictionary
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddTransient<IWordsInterface, WordsRepository>();
 
             var app = builder.Build();
 

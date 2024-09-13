@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MyDictionary.Interfaces;
 using MyDictionary.Models;
+using MyDictionary.ViewModels;
 using System.Diagnostics;
 
 namespace MyDictionary.Controllers
@@ -7,10 +9,12 @@ namespace MyDictionary.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IWordsInterface _words;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IWordsInterface words)
         {
             _logger = logger;
+            _words = words;
         }
 
         public IActionResult Index()
@@ -36,6 +40,20 @@ namespace MyDictionary.Controllers
         public IActionResult EditTask()
         {
             return View();
+        }
+        public IActionResult CheckWords()
+        {
+            var middleNumber = _words.GetWord();
+            
+            var id = middleNumber.Id;
+            var interval = 5;
+            var type = (int)PartsOfSpeech.Noun;
+
+            var viewModel = new CheckWordsViewModel();
+            viewModel.OneWord = middleNumber;
+            viewModel.ListOfTranslatedWords = _words.GetWordsByType(id, interval, type);
+
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

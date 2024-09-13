@@ -1,0 +1,29 @@
+﻿@model CheckWordsViewModel;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="homePage">
+
+    @await Html.PartialAsync("HomeButtonPartial")
+
+    <div class="homeHeader">
+
+        <h1 class="title">My dictionary</h1>
+        <hr class="horizontal-line" /><br />
+
+        <div class="displayFlex row">
+            <p>@Model.OneWord.RusValue</p>
+        </div>
+        <div class="displayFlex row">
+
+            @foreach(var item in Model.ListOfTranslatedWords)
+            {
+                <p>@item.EngValue</p>
+            }
+
+
+        </div>
+    </div>
+
+</div>

@@ -10,7 +10,7 @@
 
         public string Transcription { get; set; } = "";
 
-        public PartsOfSpeech PartsOfSpeech { get; set; } 
+        public PartsOfSpeech PartOfSpeech { get; set; } 
 
         public Word() { }
 
