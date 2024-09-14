@@ -13,16 +13,17 @@
         <hr class="horizontal-line" /><br />
 
         <div class="displayFlex row">
-            <p>@Model.OneWord.RusValue</p>
+            <p>@Model.SelectedWords.FirstOrDefault(x => x.Id == Model.IndexOfCheckedWord).RusValue</p>
+        <div class="displayFlex row">
+            <p>Index: </p>
+            <p>@Model.IndexOfCheckedWord</p>
         </div>
         <div class="displayFlex row">
 
-            @foreach(var item in Model.ListOfTranslatedWords)
+            @foreach(var item in Model.SelectedWords)
             {
                 <p>@item.EngValue</p>
             }
-
-
         </div>
     </div>
 

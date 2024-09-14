@@ -5,6 +5,9 @@ namespace MyDictionary.Repository
 {
     public class WordsRepository : IWordsInterface
     {
+        /// <summary>
+        /// Коллекция слов в мокковом словаре
+        /// </summary>
         public List<Word> words = new()
         {
             new Word{Id = 0, RusValue="стол", EngValue="table", Transcription="", PartOfSpeech=PartsOfSpeech.Noun},
@@ -17,70 +20,97 @@ namespace MyDictionary.Repository
             new Word{Id = 7, RusValue="шкаф", EngValue="rubber", Transcription="", PartOfSpeech=PartsOfSpeech.Noun},
             new Word{Id = 8, RusValue="блокнот", EngValue="notebook", Transcription="", PartOfSpeech=PartsOfSpeech.Noun},
             new Word{Id = 9, RusValue="резинка", EngValue="rubber", Transcription="", PartOfSpeech=PartsOfSpeech.Noun},
+            new Word{Id = 10, RusValue="бежать", EngValue="run", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 11, RusValue="сверлить", EngValue="drill", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 12, RusValue="кидать", EngValue="throw", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 13, RusValue="плакать", EngValue="cry", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 14, RusValue="кричать", EngValue="scream", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 15, RusValue="приехать", EngValue="arrive", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 16, RusValue="уехать", EngValue="leave", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 17, RusValue="переехать", EngValue="move", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 18, RusValue="подъехать", EngValue="drive up", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 19, RusValue="заехать", EngValue="drop in", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
+            new Word{Id = 20, RusValue="зависеть", EngValue="addicted to", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 21, RusValue="злиться", EngValue="angry with", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 22, RusValue="злиться", EngValue="angry with", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 23, RusValue="бояться", EngValue="afraid of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 24, RusValue="гордиться", EngValue="proud of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 25, RusValue="сожалеть", EngValue="angry with", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 26, RusValue="интересоваться", EngValue="interested in", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 27, RusValue="полон", EngValue="full of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 28, RusValue="обожать", EngValue="fond of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 29, RusValue="готов", EngValue="ready for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+
         };
 
-        public (int, int) Get2Numbers(int middleNumber, int interval)
+        /// <summary>
+        /// Метод рандомного создания коллекции слов одной части речи в определенном количестве
+        /// </summary>
+        /// <param name="number">количество выводимых слов как вариантов перевода</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public List<Word> GetRandomWords(int number)
         {
-            var numberOfAllWords = words.Count;
+            var selectedWords = new List<Word>();
 
-            (int start, int end) startAndEnd = (0, 0);
-            
-            if (middleNumber - interval / 2 < 0)
-            {
-                startAndEnd.start = 0;
-                startAndEnd.end = startAndEnd.start + interval - 1;
-            }
-            else if(middleNumber + interval / 2 > numberOfAllWords-1)
-            {
-                startAndEnd.end = numberOfAllWords - 1;
-                startAndEnd.start = startAndEnd.end - interval + 1;
-            }
-            else if ((middleNumber - interval / 2 >= 0) && (middleNumber + interval / 2 <= numberOfAllWords-1))
-            { 
-                startAndEnd.start = middleNumber - interval /2;
-                startAndEnd.end = middleNumber + interval /2;
-            }
+            //1. Рандомный выбор части речи
 
-            return startAndEnd;
+            var numberOfPartOfSpeech = RandomChooseOfPartOfSpeach();
+
+            // 2. Создание коллекции слов List<Word> в количестве number слов
+
+            for(int i = 0; i < number; i++)
+            {
+                var isAddedNewWord = false;
+
+                while (!isAddedNewWord)
+                {
+                    var rand = new Random();
+                    var wordNumber = rand.Next(words.Count);
+                    var word = words.FirstOrDefault(x => x.Id == wordNumber);
+
+                    if ((int)word.PartOfSpeech == numberOfPartOfSpeech && !selectedWords.Contains(word))
+                    {
+                        selectedWords.Add(word);
+                        isAddedNewWord = true;
+                    }
+                }
+            }
+            return selectedWords;
         }
 
-        public List<Word> GetAllWords()
+        /// <summary>
+        /// Метод рандомного поиска номера части речи
+        /// </summary>
+        /// <returns></returns>
+        public int RandomChooseOfPartOfSpeach()
         {
-            return words;
+            // Количество частей речи в перечислении PartsOfSpeech
+            var numberPartOfSpeach = Enum.GetNames(typeof(PartsOfSpeech)).Length;
+
+            // Рандомное определение части речи
+            var rand = new Random();
+            var currentRandomPartOfSpeech = rand.Next(numberPartOfSpeach);
+
+            // проверка, существуют ли в словаре слова данной части речи
+            // TODO: сделать проверку существуют ли в словаре слова данной части речи (для полной версии PartsOfSpeech)
+
+            return currentRandomPartOfSpeech;
         }
 
-        public Word GetWord()
+        /// <summary>
+        /// Метод определения индекса проверяемого слова
+        /// </summary>
+        /// <param name="randomWords">коллекция слов</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public int GetIndexCheckedWord(List<Word> randomWords)
         {
             var rand = new Random();
-            var numberOfAllWords = words.Count;
-            var randomNumber = rand.Next(numberOfAllWords);
-            var middleNumberWord = words.FirstOrDefault(x => x.Id == randomNumber);
+            var index = rand.Next(randomWords.Count);
+            var indexOfWord = randomWords[index].Id;
 
-            return middleNumberWord;
-        }
-
-        public Word GetWord(int id)
-        {
-            return words.FirstOrDefault(x => x.Id == id);
-        }
-
-        public List<Word> GetAllWordsByType(int parthOfSpeach)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Word> GetWordsByType(int middleNumber, int interval, int parthOfSpeach)
-        {
-            var startAndEnd = Get2Numbers(middleNumber, interval);
-
-            var words = new List<Word>();
-            
-            for(int i = startAndEnd.Item1; i < startAndEnd.Item2+1; i++)
-            {
-                words.Add(GetWord(i));
-            }
-
-            return words;
+            return indexOfWord;
         }
     }
 }

@@ -4,9 +4,9 @@ namespace MyDictionary.ViewModels
 {
     public class CheckWordsViewModel
     {
-        public Word OneWord { get; set; } = new Word();
+        public int IndexOfCheckedWord { get; set; } 
 
-        public IEnumerable<Word> ListOfTranslatedWords { get; set; } = new List<Word>();
+        public IEnumerable<Word> SelectedWords { get; set; } = new List<Word>();
 
     }
 }

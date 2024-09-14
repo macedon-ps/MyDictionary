@@ -41,17 +41,21 @@ namespace MyDictionary.Controllers
         {
             return View();
         }
+        
+        /// <summary>
+        /// Метод рандомного выбора и проверки слов
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CheckWords()
         {
-            var middleNumber = _words.GetWord();
-            
-            var id = middleNumber.Id;
             var interval = 5;
-            var type = (int)PartsOfSpeech.Noun;
+
+            var randomWords = _words.GetRandomWords(interval);
+            var indexOfCheckedWord = _words.GetIndexCheckedWord(randomWords);
 
             var viewModel = new CheckWordsViewModel();
-            viewModel.OneWord = middleNumber;
-            viewModel.ListOfTranslatedWords = _words.GetWordsByType(id, interval, type);
+            viewModel.SelectedWords = randomWords;
+            viewModel.IndexOfCheckedWord = indexOfCheckedWord;
 
             return View(viewModel);
         }
