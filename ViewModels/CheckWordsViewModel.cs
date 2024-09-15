@@ -8,5 +8,13 @@ namespace MyDictionary.ViewModels
 
         public IEnumerable<Word> SelectedWords { get; set; } = new List<Word>();
 
+        public int AllQuestionsNumber { get; set; }
+
+        public int GoodAnswersNumber { get; set; }
+
+        public int BadAnswersNunber { get; set; }
+
+        public string Grades {  get; set; }
+
     }
 }

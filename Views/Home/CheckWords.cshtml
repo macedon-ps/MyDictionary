@@ -11,20 +11,40 @@
 
         <h1 class="title">My dictionary</h1>
         <hr class="horizontal-line" /><br />
+        
+        <div class="displayFlex">
+            <div class="col-3 col-12-medium flexColumn">
+                <div class="card inline">
+                    <span>
+                        <p>@Model.SelectedWords.FirstOrDefault(x => x.Id == Model.IndexOfCheckedWord).RusValue</p>
+                    </span>
+                </div>
+                <div class="border-box inline">
+                    <p>Index: @Model.IndexOfCheckedWord</p>
+                    <p>Часть речи: @Model.SelectedWords.First().PartOfSpeech</p>
+                </div>
+            </div>
 
-        <div class="displayFlex row">
-            <p>@Model.SelectedWords.FirstOrDefault(x => x.Id == Model.IndexOfCheckedWord).RusValue</p>
-        <div class="displayFlex row">
-            <p>Index: </p>
-            <p>@Model.IndexOfCheckedWord</p>
-        </div>
-        <div class="displayFlex row">
+            <div class="col-9 col-12-medium">
 
-            @foreach(var item in Model.SelectedWords)
-            {
-                <p>@item.EngValue</p>
-            }
+                <div class="displayFlexRow wrap">
+                    @foreach (var item in Model.SelectedWords)
+                    {
+                        <button class="card">@item.EngValue</button>
+                    }
+                </div>
+                
+                <div class="border-box">
+                    <div>
+                        <p>Оценка: </p>
+                    </div>
+                    <div class="flexRow space-between">
+                        <div><p>Всего вопросов: </p></div>
+                        <div><p>Правильно:   %</p></div>
+                        <div><p>Не правильно:   %</p></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </div>
