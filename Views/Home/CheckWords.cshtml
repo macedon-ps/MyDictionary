@@ -18,12 +18,15 @@
                     </span>
                 </div>
                 <div class="border-box inline">
-                    <p>Index: @Model.IndexOfCheckedWord</p>
-                    <p>Часть речи: @Model.SelectedWords.First().PartOfSpeech</p>
+                    <div class="info-block">
+                        <p>Index: @Model.IndexOfCheckedWord</p>
+                        <p>Часть речи: @Model.SelectedWords.First().PartOfSpeech</p>
+                    </div>
+                    
                 </div>
             </div>
 
-            <div class="col-9 col-12-medium">
+            <div class="col-8 col-12-medium marginLeft3">
                 
                 <form method="post">
                                                                                
@@ -51,10 +54,11 @@
                         }
                     }
                     <div class="border-box">
-                        <div>
-                            <p>Оценка: @Model.Grades</p>
+                        <div class="grades-block">
+                            <div>Оценка:</div>
+                            <div class="grades">@Model.Grades</div>
                         </div>
-                        <div class="flexRow space-between">
+                        <div class="flexRow space-between statistic-block">
                             <div><p>Всего вопросов: @Model.AllQuestionsNumber</p></div>
                             <div>
                                 <p>Правильно: @Model.GoodAnswersNumber (@goodMarksLevel %)</p>

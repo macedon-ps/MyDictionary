@@ -239,49 +239,81 @@ select.languageTo{
 */
 /* //////////////////////////////////////////////////////////////////////////////////////////// */
 
-	.descriptionBlock{
-		padding-left: 1em;
-	}
-	.form label{
-		padding: 0.5em 1em;
-		font-weight: 600;
-	}
-	section:last-child, article:last-child {
-		margin-bottom: 0;
-	}
-	.new-foto,
-	.blog-foto,
-	.product-foto{
-		width: 100%;
-		aspect-ratio: 3/2;
-		object-fit: cover;
-	}
-	.marginTop1{
-		margin-top: 1em;
-	}
-	.marginTop05 {
-		margin-top: 0.5em;
-	}
-	.iconLink{
-		display: flex;
-	}
-	.iconImage{
-		margin-right: 1em;
-	}
-	.table th{
-		padding-left: 2em;
-		text-align:left;
-		font-weight: 600;
-		color: rgba(0, 0, 0, 0.5);
-	}
-	.table td{
-		max-width: 33%;
-		padding: 0.5em 0.5em 0.5em 2em;
-	}
-	.table td a,
-	.table td button{
-		margin-right: 0.8em;
-	}
+.descriptionBlock{
+	padding-left: 1em;
+}
+.form label{
+	padding: 0.5em 1em;
+	font-weight: 600;
+}
+section:last-child, article:last-child {
+	margin-bottom: 0;
+}
+.new-foto,
+.blog-foto,
+.product-foto{
+	width: 100%;
+	aspect-ratio: 3/2;
+	object-fit: cover;
+}
+.marginTop1{
+	margin-top: 1em;
+}
+.marginTop05 {
+	margin-top: 0.5em;
+}
+.marginLeft3{
+	margin-left: 3em;
+}
+.info-block {
+	background-color: #99cc47;
+	padding: 1em;
+	border-radius: 10px;
+}
+.grades-block {
+	display: flex;
+	background-color: #99cc47;
+	padding: 2em;
+	border-radius: 10px;
+}
+.grades{
+	margin: auto;
+	font-size: 24px;
+}
+.statistic-block {
+	background-color: #99cc47;
+	margin-top: 0.5em;
+	padding: 1em;
+	border-radius: 10px;
+}
+.border-box {
+	/*margin-top: 2em;*/
+	margin: 6em auto 0;
+	padding: 0.5em;
+	border: solid 1px green;
+	border-radius: 10px;
+	background-color: #89b543;
+}
+.iconLink {
+	display: flex;
+}
+.iconImage{
+	margin-right: 1em;
+}
+.table th{
+	padding-left: 2em;
+	text-align:left;
+	font-weight: 600;
+	color: rgba(0, 0, 0, 0.5);
+}
+.table td{
+	max-width: 33%;
+	padding: 0.5em 0.5em 0.5em 2em;
+}
+.table td a,
+.table td button{
+	margin-right: 0.8em;
+}
 .short-description {
 	margin: 1em auto;
 	width: 80%;
@@ -2331,13 +2363,7 @@ select.languageTo{
 	flex-wrap: wrap;
 	margin: 0;
 }
-.border-box {
-	/*margin-top: 2em;*/
-	margin: 2em auto 0;
-	padding: 0.5em;
-	border: solid 1px green;
-	border-radius: 10px;
-}
+
 .displayInline {
 	display: inline-block;
 }
