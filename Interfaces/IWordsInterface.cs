@@ -24,5 +24,6 @@ namespace MyDictionary.Interfaces
             int idSelectedAnswer, 
             List<Word> newRandomWords, 
             int newIndexOfCheckedWord);
+        int GetNumberOfWords();
     }
 }

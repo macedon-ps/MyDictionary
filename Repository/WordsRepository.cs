@@ -7,6 +7,11 @@ namespace MyDictionary.Repository
     public class WordsRepository : IWordsInterface
     {
         /// <summary>
+        /// количество вариантов для перевода слова
+        /// </summary>
+        private int numberOfWords { get; set; } = 5;
+
+        /// <summary>
         /// Коллекция слов в мокковом словаре
         /// </summary>
         public List<Word> words = new()
@@ -43,6 +48,12 @@ namespace MyDictionary.Repository
             new Word{Id = 29, RusValue="готов", EngValue="ready for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
 
         };
+
+
+        public int GetNumberOfWords()
+        {
+            return this.numberOfWords;
+        }
 
         /// <summary>
         /// Метод рандомного создания коллекции слов одной части речи в определенном количестве
