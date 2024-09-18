@@ -12,9 +12,9 @@ namespace MyDictionary.ViewModels
 
         public int GoodAnswersNumber { get; set; }
 
-        public int BadAnswersNunber { get; set; }
+        public int BadAnswersNumber { get; set; }
 
-        public string Grades {  get; set; }
+        public string Grades { get; set; } = "";
 
     }
 }

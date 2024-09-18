@@ -1,7 +1,5 @@
 ﻿@model CheckWordsViewModel;
-@{
-    ViewData["Title"] = "Home Page";
-}
+
 
 <div class="homePage">
 
@@ -26,25 +24,48 @@
             </div>
 
             <div class="col-9 col-12-medium">
-
-                <div class="displayFlexRow wrap">
-                    @foreach (var item in Model.SelectedWords)
-                    {
-                        <button class="card">@item.EngValue</button>
-                    }
-                </div>
                 
-                <div class="border-box">
-                    <div>
-                        <p>Оценка: </p>
+                <form method="post">
+                                                                               
+                    <div class="displayFlexRow wrap">
+                        @foreach (var item in Model.SelectedWords)
+                        {
+                            <input type="submit" class="card" asp-controller="Home" 
+                            asp-action="CheckWords"
+                            asp-route-idWord="@Model.IndexOfCheckedWord"
+                            asp-route-allQuestion="@Model.AllQuestionsNumber"
+                            asp-route-goodAnswers="@Model.GoodAnswersNumber"
+                            asp-route-badAnswers="@Model.BadAnswersNumber"
+                            asp-route-grades="@Model.Grades"
+                            asp-route-idSelectedAnswer="@item.Id" value="@item.EngValue @item.Id" />
+                        }
                     </div>
-                    <div class="flexRow space-between">
-                        <div><p>Всего вопросов: </p></div>
-                        <div><p>Правильно:   %</p></div>
-                        <div><p>Не правильно:   %</p></div>
+                    @{
+                        var goodMarksLevel = 0.0m;
+                        var badMarksLevel = 0.0m;
+
+                        if(Model.AllQuestionsNumber != 0)
+                        {
+                            goodMarksLevel = Math.Round((Model.GoodAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
+                            badMarksLevel = Math.Round((Model.BadAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
+                        }
+                    }
+                    <div class="border-box">
+                        <div>
+                            <p>Оценка: @Model.Grades</p>
+                        </div>
+                        <div class="flexRow space-between">
+                            <div><p>Всего вопросов: @Model.AllQuestionsNumber</p></div>
+                            <div>
+                                <p>Правильно: @Model.GoodAnswersNumber (@goodMarksLevel %)</p>
+                            </div>
+                            <div>
+                                <p>Не правильно: @Model.BadAnswersNumber (@badMarksLevel %)</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
+                </form>
+              </div>
         </div>
     </div>
 </div>

@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyDictionary.Interfaces;
-using MyDictionary.Models;
-using MyDictionary.ViewModels;
-using System.Diagnostics;
 
 namespace MyDictionary.Controllers
 {
@@ -17,26 +14,46 @@ namespace MyDictionary.Controllers
             _words = words;
         }
 
+        /// <summary>
+        /// Метод вывода стартовой страницы
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Index()
         {
             return View();
         }
 
+        /// <summary>
+        /// Метод вывода страницы ввода, редактирования, удаления слов / предложений / грамматики
+        /// </summary>
+        /// <returns></returns>
         public IActionResult Edit()
         {
             return View();
         }
         
+        /// <summary>
+        /// Метод вывода общих задач
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CommonTask()
         {
             return View();
         }
         
+        /// <summary>
+        /// Метод вывода задач страницы Home
+        /// </summary>
+        /// <returns></returns>
         public IActionResult HomeTask()
         {
             return View();
         }
-        
+
+        /// <summary>
+        /// Метод вывода задач страницы Edit
+        /// </summary>
+        /// <returns></returns>
         public IActionResult EditTask()
         {
             return View();
@@ -53,17 +70,41 @@ namespace MyDictionary.Controllers
             var randomWords = _words.GetRandomWords(interval);
             var indexOfCheckedWord = _words.GetIndexCheckedWord(randomWords);
 
-            var viewModel = new CheckWordsViewModel();
-            viewModel.SelectedWords = randomWords;
-            viewModel.IndexOfCheckedWord = indexOfCheckedWord;
-
+            var viewModel = _words.GetCheckWordsViewModel(indexOfCheckedWord, randomWords);
+  
             return View(viewModel);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        /// <summary>
+        /// Метод рандомного выбора и проверки слов (POST версия)
+        /// </summary>
+        /// <param name="idWord">индекс слова, кот. будет проверяться на правильный перевод</param>
+        /// <param name="allQuestion">количество переведенных слов</param>
+        /// <param name="goodAnswers">количество правильных ответов</param>
+        /// <param name="badAnswers">количество неправильных ответо</param>
+        /// <param name="grades">описание оценки</param>
+        /// <param name="idSelectedAnswer">индекс слова - одного из многих вариантов перевода</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult CheckWords(int idWord, int allQuestion, int goodAnswers, int badAnswers, string grades, int idSelectedAnswer)
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            try
+            {
+                // при нажатии на кнопку с вариантом ответа б. сгенерированы и отрендерены новые данные для списка слов и индекса выбранного слова (применятся в конце)
+
+                var interval = 5;
+                var newRandomWords = _words.GetRandomWords(interval);
+                var newIndexOfCheckedWord = _words.GetIndexCheckedWord(newRandomWords);
+
+                var viewModel = _words.GetCheckWordsViewModel(idWord, allQuestion, goodAnswers, badAnswers, grades, idSelectedAnswer, newRandomWords, newIndexOfCheckedWord);
+             
+                return View(viewModel);
+            }
+            catch (Exception ex) 
+            { 
+                return View("Error", ex);
+            }
+            
         }
     }
 }

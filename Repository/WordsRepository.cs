@@ -1,5 +1,6 @@
 ﻿using MyDictionary.Interfaces;
 using MyDictionary.Models;
+using MyDictionary.ViewModels;
 
 namespace MyDictionary.Repository
 {
@@ -35,7 +36,7 @@ namespace MyDictionary.Repository
             new Word{Id = 22, RusValue="известный", EngValue="famous for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
             new Word{Id = 23, RusValue="бояться", EngValue="afraid of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
             new Word{Id = 24, RusValue="гордиться", EngValue="proud of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 25, RusValue="сожалеть", EngValue="sorru about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 25, RusValue="сожалеть", EngValue="sorry about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
             new Word{Id = 26, RusValue="интересоваться", EngValue="interested in", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
             new Word{Id = 27, RusValue="полон", EngValue="full of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
             new Word{Id = 28, RusValue="обожать", EngValue="fond of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
@@ -92,7 +93,6 @@ namespace MyDictionary.Repository
             var rand = new Random();
             var currentRandomPartOfSpeech = rand.Next(numberPartOfSpeach);
 
-            // проверка, существуют ли в словаре слова данной части речи
             // TODO: сделать проверку существуют ли в словаре слова данной части речи (для полной версии PartsOfSpeech)
 
             return currentRandomPartOfSpeech;
@@ -101,7 +101,7 @@ namespace MyDictionary.Repository
         /// <summary>
         /// Метод определения индекса проверяемого слова
         /// </summary>
-        /// <param name="randomWords">коллекция слов</param>
+        /// <param name="randomWords">коллекция рандомно выбранных слов из БД</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public int GetIndexCheckedWord(List<Word> randomWords)
@@ -111,6 +111,65 @@ namespace MyDictionary.Repository
             var indexOfWord = randomWords[index].Id;
 
             return indexOfWord;
+        }
+
+        /// <summary>
+        /// Метод создания вью-модели CheckWordsViewModel с 2-мя параметрами
+        /// </summary>
+        /// <param name="indexOfCheckedWord">индекс рандомно выбранного слова</param>
+        /// <param name="randomWords">коллекция рандомно выбранных слов из БД</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public CheckWordsViewModel GetCheckWordsViewModel(int indexOfCheckedWord, List<Word> randomWords)
+        {
+            var viewModel = new CheckWordsViewModel();
+
+            viewModel.IndexOfCheckedWord = indexOfCheckedWord;
+            viewModel.SelectedWords = randomWords;
+                        
+            return viewModel;
+        }
+
+        /// <summary>
+        /// Метод создания вью-модели CheckWordsViewModel с многими параметрами
+        /// </summary>
+        /// <param name="idWord">индекс слова, кот. будет проверяться на правильный перевод</param>
+        /// <param name="allQuestion">количество переведенных слов</param>
+        /// <param name="goodAnswers">количество правильных ответов</param>
+        /// <param name="badAnswers">количество неправильных ответов</param>
+        /// <param name="grades">описание оценки</param>
+        /// <param name="idSelectedAnswer">индекс слова - одного из многих вариантов перевода</param>
+        /// <param name="newRandomWords">новый сгенерированный список слов</param>
+        /// <param name="newIndexOfCheckedWord">новый сгенерированный индекс проверяемого слова</param>
+        /// <returns></returns>
+        public CheckWordsViewModel GetCheckWordsViewModel(int idWord, int allQuestion, int goodAnswers, int badAnswers, string grades, int idSelectedAnswer, List<Word> newRandomWords, int newIndexOfCheckedWord)
+        {
+            var viewModel = new CheckWordsViewModel();
+
+            viewModel.IndexOfCheckedWord = idWord;
+            viewModel.AllQuestionsNumber = allQuestion;
+            viewModel.GoodAnswersNumber = goodAnswers;
+            viewModel.BadAnswersNumber = badAnswers;
+            viewModel.Grades = grades;
+
+            viewModel.AllQuestionsNumber++;
+
+            if (idSelectedAnswer == viewModel.IndexOfCheckedWord)
+            {
+                viewModel.GoodAnswersNumber++;
+                viewModel.Grades = "Good job!!!";
+            }
+            else
+            {
+                viewModel.BadAnswersNumber++;
+                viewModel.Grades = "Bad, very bad!!!";
+            }
+
+            viewModel.IndexOfCheckedWord = newIndexOfCheckedWord;
+            viewModel.SelectedWords = newRandomWords;
+
+            return viewModel;
+
         }
     }
 }
