@@ -36,16 +36,39 @@ namespace MyDictionary.Repository
             new Word{Id = 17, RusValue="переехать", EngValue="move", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
             new Word{Id = 18, RusValue="подъехать", EngValue="drive up", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
             new Word{Id = 19, RusValue="заехать", EngValue="drop in", Transcription="", PartOfSpeech=PartsOfSpeech.Verb},
-            new Word{Id = 20, RusValue="зависеть", EngValue="addicted to", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 21, RusValue="злиться", EngValue="angry with", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 22, RusValue="известный", EngValue="famous for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 23, RusValue="бояться", EngValue="afraid of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 24, RusValue="гордиться", EngValue="proud of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 25, RusValue="сожалеть", EngValue="sorry about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 26, RusValue="интересоваться", EngValue="interested in", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 27, RusValue="полон", EngValue="full of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 28, RusValue="обожать", EngValue="fond of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-            new Word{Id = 29, RusValue="готов", EngValue="ready for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 20, RusValue="зависеть от", EngValue="addicted to", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 21, RusValue="злиться на", EngValue="angry with", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 22, RusValue="злиться из-за", EngValue="angry about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 23, RusValue="известный чем-то", EngValue="famous for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 24, RusValue="бояться чего-то", EngValue="afraid of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 25, RusValue="гордиться чем-то", EngValue="proud of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 26, RusValue="сожалеть о", EngValue="sorry about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 27, RusValue="интересоваться чем-то", EngValue="interested in", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 28, RusValue="полон чего то", EngValue="full of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 29, RusValue="обожать что-то", EngValue="fond of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 30, RusValue="хорош в", EngValue="good at", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 31, RusValue="плох в", EngValue="bad at", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 32, RusValue="женат на", EngValue="married to", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 33, RusValue="по-доброму с", EngValue="kind of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 34, RusValue="добр к", EngValue="kind to", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 35, RusValue="мило с", EngValue="nice of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 36, RusValue="мил к", EngValue="nice to", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 37, RusValue="увлекаться чем-то", EngValue="keen on", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 38, RusValue="сыт по горло чем-то", EngValue="fed up with", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 39, RusValue="устал от", EngValue="tired of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 40, RusValue="в восторге от", EngValue="excited about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 41, RusValue="без ума от", EngValue="crazy about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 42, RusValue="рад за кого-то", EngValue="happy for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 43, RusValue="рад чему-то", EngValue="happy about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 44, RusValue="удовлетворен чем-то", EngValue="satisfied with", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 45, RusValue="разочарован чем-то", EngValue="disappointed about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 46, RusValue="шокирован чем-то", EngValue="shocked by", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 47, RusValue="типично для", EngValue="typical of", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 48, RusValue="удивлен чем-то", EngValue="surprised by", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 49, RusValue="отличается от", EngValue="different from", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 50, RusValue="подписан на", EngValue="subscribed to", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 51, RusValue="беспокоиться о", EngValue="worried about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
+            new Word{Id = 52, RusValue="готов к", EngValue="ready for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
 
         };
 
@@ -102,7 +125,9 @@ namespace MyDictionary.Repository
 
             // Рандомное определение части речи
             var rand = new Random();
-            var currentRandomPartOfSpeech = rand.Next(numberPartOfSpeach);
+            //var currentRandomPartOfSpeech = rand.Next(numberPartOfSpeach);
+            // м. вручную выставить: 0 - существительные, 1 - глаголы, 2 - прилагательные
+            var currentRandomPartOfSpeech = 2;
 
             // TODO: сделать проверку существуют ли в словаре слова данной части речи (для полной версии PartsOfSpeech)
 
