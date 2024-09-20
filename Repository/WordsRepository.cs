@@ -69,19 +69,21 @@ namespace MyDictionary.Repository
             new Word{Id = 50, RusValue="подписан на", EngValue="subscribed to", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
             new Word{Id = 51, RusValue="беспокоиться о", EngValue="worried about", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
             new Word{Id = 52, RusValue="готов к", EngValue="ready for", Transcription="", PartOfSpeech=PartsOfSpeech.Adjective},
-
         };
 
-
+        /// <summary>
+        /// Метод получения количества слов в коллекции - для количества вариантов ответа 
+        /// </summary>
+        /// <returns></returns>
         public int GetNumberOfWords()
         {
             return this.numberOfWords;
         }
 
         /// <summary>
-        /// Метод рандомного создания коллекции слов одной части речи в определенном количестве
+        /// Метод рандомного создания коллекции слов одной части речи, состоящей из заданного количества слов
         /// </summary>
-        /// <param name="number">количество выводимых слов как вариантов перевода</param>
+        /// <param name="number">заданное количество слов в коллекции</param>
         /// <returns></returns>
         /// <exception cref="NotImplementedException"></exception>
         public List<Word> GetRandomWords(int number)
@@ -115,7 +117,7 @@ namespace MyDictionary.Repository
         }
 
         /// <summary>
-        /// Метод рандомного поиска номера части речи
+        /// Метод рандомного определения части речи
         /// </summary>
         /// <returns></returns>
         public int RandomChooseOfPartOfSpeach()
@@ -135,11 +137,10 @@ namespace MyDictionary.Repository
         }
 
         /// <summary>
-        /// Метод определения индекса проверяемого слова
+        /// Метод рандомного определения индекса выбранного слова из коллекции слов
         /// </summary>
-        /// <param name="randomWords">коллекция рандомно выбранных слов из БД</param>
+        /// <param name="randomWords">рандомно созданная коллекция слов</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public int GetIndexCheckedWord(List<Word> randomWords)
         {
             var rand = new Random();
@@ -150,12 +151,11 @@ namespace MyDictionary.Repository
         }
 
         /// <summary>
-        /// Метод создания вью-модели CheckWordsViewModel с 2-мя параметрами
+        /// Метод получения вью-модели по 2-м параметрам
         /// </summary>
-        /// <param name="indexOfCheckedWord">индекс рандомно выбранного слова</param>
-        /// <param name="randomWords">коллекция рандомно выбранных слов из БД</param>
+        /// <param name="indexOfCheckedWord">индекс выбранного слова из коллекции слов</param>
+        /// <param name="randomWords">рандомно созданная коллекция слов</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public CheckWordsViewModel GetCheckWordsViewModel(int indexOfCheckedWord, List<Word> randomWords)
         {
             var viewModel = new CheckWordsViewModel();
@@ -167,16 +167,16 @@ namespace MyDictionary.Repository
         }
 
         /// <summary>
-        /// Метод создания вью-модели CheckWordsViewModel с многими параметрами
+        /// Метод получения вью-модели по 8-м параметрам
         /// </summary>
-        /// <param name="idWord">индекс слова, кот. будет проверяться на правильный перевод</param>
-        /// <param name="allQuestion">количество переведенных слов</param>
+        /// <param name="idWord">идентификатор слова, которое проверяется</param>
+        /// <param name="allQuestion">количество всех ответов</param>
         /// <param name="goodAnswers">количество правильных ответов</param>
         /// <param name="badAnswers">количество неправильных ответов</param>
-        /// <param name="grades">описание оценки</param>
-        /// <param name="idSelectedAnswer">индекс слова - одного из многих вариантов перевода</param>
-        /// <param name="newRandomWords">новый сгенерированный список слов</param>
-        /// <param name="newIndexOfCheckedWord">новый сгенерированный индекс проверяемого слова</param>
+        /// <param name="grades">словесная оценка пользователя за его ответ</param>
+        /// <param name="idSelectedAnswer">идентификатор слова, выбранного пользователем при ответе</param>
+        /// <param name="newRandomWords">новая рандомно созданная коллекция слов</param>
+        /// <param name="newIndexOfCheckedWord">новый индекс выбранного слова из коллекции слов</param>
         /// <returns></returns>
         public CheckWordsViewModel GetCheckWordsViewModel(int idWord, int allQuestion, int goodAnswers, int badAnswers, string grades, int idSelectedAnswer, List<Word> newRandomWords, int newIndexOfCheckedWord)
         {
@@ -205,7 +205,66 @@ namespace MyDictionary.Repository
             viewModel.SelectedWords = newRandomWords;
 
             return viewModel;
+        }
 
+        public List<Word> GetAllWords()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Word> GetWordsByPartOfSpeech(PartsOfSpeech partOfSpeech)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Word GetWordById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Word GetWordByRusValue(string rusValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Word GetWordByEngValue(string engValue)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveWoord(Word word, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteWoord(Word word, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Sentence> GetAllSentences()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Word> GetSentencesByTence(Tenses tence)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Word GetSentenceById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void SaveSentence(Word word, int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteSentence(Word word, int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }
