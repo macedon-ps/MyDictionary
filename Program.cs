@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using MyDictionary.DBContext;
 using MyDictionary.Interfaces;
 using MyDictionary.Repository;
 
@@ -12,6 +14,9 @@ namespace MyDictionary
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<IWordsInterface, WordsRepository>();
+
+            builder.Services.AddDbContext<WordsDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             var app = builder.Build();
 
