@@ -88,17 +88,11 @@ namespace MyDictionary.Interfaces
         void DeleteSentence(Word word, int id);
 
         /// <summary>
-        /// Метод получения количества слов в коллекции - для количества вариантов ответа 
-        /// </summary>
-        /// <returns></returns>
-        int GetNumberOfWords();
-
-        /// <summary>
         /// Метод рандомного создания коллекции слов одной части речи, состоящей из заданного количества слов
         /// </summary>
         /// <param name="numberWords">заданное количество слов в коллекции</param>
         /// <returns></returns>
-        List<Word> GetRandomWords(int numberWords);
+        List<Word> GetRandomWords();
 
         /// <summary>
         /// Метод рандомного определения части речи

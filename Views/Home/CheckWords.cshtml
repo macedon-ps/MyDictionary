@@ -14,13 +14,13 @@
             <div class="col-3 col-12-medium flexColumn">
                 <div class="card inline">
                     <span>
-                        <p>@Model.SelectedWords.FirstOrDefault(x => x.Id == Model.IndexOfCheckedWord).RusValue</p>
+                        <p>@Model.RandomWords.FirstOrDefault(x => x.Id == Model.IndexOfCheckedWord).RusValue</p>
                     </span>
                 </div>
                 <div class="border-box inline">
                     <div class="info-block">
                         <p>Index: @Model.IndexOfCheckedWord</p>
-                        <p>Часть речи: @Model.SelectedWords.First().PartOfSpeech</p>
+                        <p>Часть речи: @Model.RandomWords.First().PartOfSpeech</p>
                     </div>
                     
                 </div>
@@ -31,7 +31,7 @@
                 <form method="post">
                                                                                
                     <div class="displayFlexRow wrap">
-                        @foreach (var item in Model.SelectedWords)
+                        @foreach (var item in Model.RandomWords)
                         {
                             <input type="submit" class="card" asp-controller="Home" 
                             asp-action="CheckWords"

@@ -65,8 +65,7 @@ namespace MyDictionary.Controllers
         /// <returns></returns>
         public IActionResult CheckWords()
         {
-            var numberWords = _words.GetNumberOfWords();
-            var randomWords = _words.GetRandomWords(numberWords);
+            var randomWords = _words.GetRandomWords();
             var indexOfCheckedWord = _words.GetIndexCheckedWord(randomWords);
 
             var viewModel = _words.GetCheckWordsViewModel(indexOfCheckedWord, randomWords);
@@ -91,8 +90,7 @@ namespace MyDictionary.Controllers
             {
                 // при нажатии на кнопку с вариантом ответа б. сгенерированы и отрендерены новые данные для списка слов и индекса выбранного слова (применятся в конце)
 
-                var numberWords = _words.GetNumberOfWords();
-                var newRandomWords = _words.GetRandomWords(numberWords);
+                var newRandomWords = _words.GetRandomWords();
                 var newIndexOfCheckedWord = _words.GetIndexCheckedWord(newRandomWords);
 
                 var viewModel = _words.GetCheckWordsViewModel(idWord, allQuestion, goodAnswers, badAnswers, grades, idSelectedAnswer, newRandomWords, newIndexOfCheckedWord);
@@ -104,6 +102,12 @@ namespace MyDictionary.Controllers
                 return View("Error", ex);
             }
             
+        }
+
+        public IActionResult GetAllWords()
+        {
+            var words = _words.GetAllWords();
+            return View(words);
         }
     }
 }
