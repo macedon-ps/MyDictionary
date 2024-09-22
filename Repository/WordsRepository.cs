@@ -9,12 +9,14 @@ namespace MyDictionary.Repository
     public class WordsRepository : IWordsInterface
     {
         private readonly WordsDbContext _dbWords;
-        public int[] arrayWordsIndex;
+        public int[] _arrayAllWordsIndex;
+        public int _allWordsNumber;
 
         public WordsRepository(WordsDbContext dbWords)
         {
             _dbWords = dbWords;
-            arrayWordsIndex = GetArrayOfWordsIndex();
+            _allWordsNumber = GetNumberOfAllWords();
+            _arrayAllWordsIndex = GetArrayOfWordsIndex();
         }
             
         /// <summary>
@@ -41,8 +43,7 @@ namespace MyDictionary.Repository
                 while (!isAddedNewWord)
                 {
                     var randomWord = GetRandomWord();
-                        //words.FirstOrDefault(x => x.Id == randomWordNumber);
-
+                        
                     if ((int)randomWord.PartOfSpeech == numberOfPartOfSpeech && !randomWordsList.Contains(randomWord))
                     {
                         randomWordsList.Add(randomWord);
@@ -53,12 +54,15 @@ namespace MyDictionary.Repository
             return randomWordsList;
         }
 
+        /// <summary>
+        /// Метод рандомного выбора слова
+        /// </summary>
+        /// <returns></returns>
         public Word GetRandomWord()
         {
             var rand = new Random();
-            var allWordsNumber = GetNumberOfAllWords();
-            var randomWordNumber = rand.Next(allWordsNumber);
-            var randomWordIndex = arrayWordsIndex[randomWordNumber];
+            var randomWordNumber = rand.Next(this._allWordsNumber);
+            var randomWordIndex = _arrayAllWordsIndex[randomWordNumber];
 
             var word = _dbWords.Words.FirstOrDefault(x => x.Id == randomWordIndex);
 
@@ -77,8 +81,10 @@ namespace MyDictionary.Repository
             // Рандомное определение части речи
             var rand = new Random();
             //var currentRandomPartOfSpeech = rand.Next(numberPartOfSpeach);
-            // м. вручную выставить: 0 - существительные, 1 - глаголы, 2 - прилагательные
+            // м. вручную выставить: 0 - существительные, 1 - глаголы, 2 - прилагательные, 4 - наречмя и т.д.
             var currentRandomPartOfSpeech = 0;
+
+            // TODO: м.б. сделать возможным выбор пользователем части  речи самостоятельно
 
             // TODO: сделать проверку существуют ли в словаре слова данной части речи (для полной версии PartsOfSpeech)
 
@@ -105,7 +111,7 @@ namespace MyDictionary.Repository
         /// <param name="indexOfCheckedWord">индекс выбранного слова из коллекции слов</param>
         /// <param name="randomWords">рандомно созданная коллекция слов</param>
         /// <returns></returns>
-        public CheckWordsViewModel GetCheckWordsViewModel(int indexOfCheckedWord, List<Word> randomWords)
+        public CheckWordsViewModel GetCheckWordsViewModel(List<Word> randomWords, int indexOfCheckedWord)
         {
             var viewModel = new CheckWordsViewModel();
 
@@ -127,7 +133,7 @@ namespace MyDictionary.Repository
         /// <param name="newRandomWords">новая рандомно созданная коллекция слов</param>
         /// <param name="newIndexOfCheckedWord">новый индекс выбранного слова из коллекции слов</param>
         /// <returns></returns>
-        public CheckWordsViewModel GetCheckWordsViewModel(int idWord, int allQuestion, int goodAnswers, int badAnswers, string grades, int idSelectedAnswer, List<Word> newRandomWords, int newIndexOfCheckedWord)
+        public CheckWordsViewModel GetCheckWordsViewModel(List<Word> newRandomWords, int newIndexOfCheckedWord, int idWord, int allQuestion, int goodAnswers, int badAnswers, string grades, int idSelectedAnswer)
         {
             var viewModel = new CheckWordsViewModel();
 
@@ -139,7 +145,7 @@ namespace MyDictionary.Repository
 
             viewModel.AllQuestionsNumber++;
 
-            if (idSelectedAnswer == viewModel.IndexOfCheckedWord)
+            if (idSelectedAnswer == idWord)
             {
                 viewModel.GoodAnswersNumber++;
                 viewModel.Grades = "Good job!!!";
@@ -171,7 +177,7 @@ namespace MyDictionary.Repository
 
         public int[] GetArrayOfWordsIndex()
         {
-            var nuberOfWodds = GetNumberOfAllWords();
+            var nuberOfWodds = this._allWordsNumber;
             var arrayOfWordsIndex = new int[nuberOfWodds];
             var allWords = GetAllWords();
             var i = 0;

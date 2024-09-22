@@ -114,8 +114,8 @@ namespace MyDictionary.Interfaces
         /// <param name="randomWords">рандомно созданная коллекция слов</param>
         /// <returns></returns>
         CheckWordsViewModel GetCheckWordsViewModel(
-            int indexOfCheckedWord, 
-            List<Word> randomWords);
+            List<Word> randomWords,
+            int indexOfCheckedWord);
 
         /// <summary>
         /// Метод получения вью-модели по 8-м параметрам
@@ -130,13 +130,13 @@ namespace MyDictionary.Interfaces
         /// <param name="newIndexOfCheckedWord">новый индекс выбранного слова из коллекции слов</param>
         /// <returns></returns>
         CheckWordsViewModel GetCheckWordsViewModel(
+            List<Word> newRandomWords,
+            int newIndexOfCheckedWord,
             int idWord, 
             int allQuestion, 
             int goodAnswers, 
             int badAnswers, 
             string grades, 
-            int idSelectedAnswer, 
-            List<Word> newRandomWords, 
-            int newIndexOfCheckedWord);
+            int idSelectedAnswer);
     }
 }

@@ -68,7 +68,7 @@ namespace MyDictionary.Controllers
             var randomWords = _words.GetRandomWords();
             var indexOfCheckedWord = _words.GetIndexCheckedWord(randomWords);
 
-            var viewModel = _words.GetCheckWordsViewModel(indexOfCheckedWord, randomWords);
+            var viewModel = _words.GetCheckWordsViewModel(randomWords, indexOfCheckedWord);
   
             return View(viewModel);
         }
@@ -93,7 +93,7 @@ namespace MyDictionary.Controllers
                 var newRandomWords = _words.GetRandomWords();
                 var newIndexOfCheckedWord = _words.GetIndexCheckedWord(newRandomWords);
 
-                var viewModel = _words.GetCheckWordsViewModel(idWord, allQuestion, goodAnswers, badAnswers, grades, idSelectedAnswer, newRandomWords, newIndexOfCheckedWord);
+                var viewModel = _words.GetCheckWordsViewModel(newRandomWords, newIndexOfCheckedWord, idWord, allQuestion, goodAnswers, badAnswers, grades, idSelectedAnswer);
              
                 return View(viewModel);
             }

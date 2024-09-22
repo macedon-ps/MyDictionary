@@ -143,7 +143,7 @@ namespace MyDictionary.Repository
         /// <param name="indexOfCheckedWord">индекс выбранного слова из коллекции слов</param>
         /// <param name="randomWords">рандомно созданная коллекция слов</param>
         /// <returns></returns>
-        public CheckWordsViewModel GetCheckWordsViewModel(int indexOfCheckedWord, List<Word> randomWords)
+        public CheckWordsViewModel GetCheckWordsViewModel(List<Word> randomWords, int indexOfCheckedWord)
         {
             var viewModel = new CheckWordsViewModel();
 
@@ -165,7 +165,7 @@ namespace MyDictionary.Repository
         /// <param name="newRandomWords">новая рандомно созданная коллекция слов</param>
         /// <param name="newIndexOfCheckedWord">новый индекс выбранного слова из коллекции слов</param>
         /// <returns></returns>
-        public CheckWordsViewModel GetCheckWordsViewModel(int idWord, int allQuestion, int goodAnswers, int badAnswers, string grades, int idSelectedAnswer, List<Word> newRandomWords, int newIndexOfCheckedWord)
+        public CheckWordsViewModel GetCheckWordsViewModel(List<Word> newRandomWords, int newIndexOfCheckedWord, int idWord, int allQuestion, int goodAnswers, int badAnswers, string grades, int idSelectedAnswer)
         {
             var viewModel = new CheckWordsViewModel();
 
