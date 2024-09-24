@@ -17,7 +17,7 @@ namespace MyDictionary.ViewModels
         /// <summary>
         /// Количество вариантов для перевода слова
         /// </summary>
-        private int NumberOfWords { get; set; } = 3;
+        private int NumberOfWords { get; set; } = 5;
 
         /// <summary>
         /// Количество всех ответов
