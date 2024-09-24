@@ -1,0 +1,55 @@
+﻿<div class="modal fade" id="chooseItem" tabindex="-1" role="dialog" aria-labelledby="chooseItemLabel" aria-hidden="true">
+    >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chooseItemLabel">Выберите часть речи</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Home" asp-action="GetPartOfSpeech">
+                    <div class="form-group">
+                        <input type="checkbox" name="partSpeech" value="noun" />
+                        <label class="formLabel">Существительное</label>
+                    </div> <div class="form-group">
+                        <input type="checkbox" name="partSpeech" value="verb" />
+                        <label class="formLabel">Глагол</label>
+                    </div> 
+                    <div class="form-group">
+                        <input type="checkbox" name="partSpeech" value="adjective" />
+                        <label class="formLabel">Прилагательное</label>
+                    </div> 
+                    <div class="form-group">
+                        <input type="checkbox" name="partSpeech" value="adverb" />
+                        <label class="formLabel">Наречие</label>
+                    </div> 
+                    <div class="form-group">
+                        <input type="checkbox" name="partSpeech" value="pronoun" />
+                        <label class="formLabel">Местоимение</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="partSpeech" value="preposition" />
+                        <label class="formLabel">Предлог</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="partSpeech" value="conjunction" />
+                        <label class="formLabel">Союз</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="partSpeech" value="interjection" />
+                        <label class="formLabel">Междометие</label>
+                    </div>
+                                       
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+ </div>
+
+

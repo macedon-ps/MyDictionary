@@ -9,9 +9,15 @@
         <hr class="horizontal-line" /><br />
 
         <div class="displayFlex row">
+            <form asp-controller="Home" asp-action="GetPartOfSpeech">
+                <p>Тут будет функционал использования своего пользовательского словаря.</p>
+                <button type="button" class="btn btn-info"
+                        data-toggle="modal" data-target="#chooseItem">Выбрать часть речи
+                </button>
+            </form>
             
-            <p>Тут будет функционал использования своего пользовательского словаря.</p>
         </div>
     </div>
 
  </div>
+@await Html.PartialAsync("ChoosePartOfSpeechPartial")
