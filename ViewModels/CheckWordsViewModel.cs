@@ -12,7 +12,7 @@ namespace MyDictionary.ViewModels
         /// <summary>
         /// Рандомно созданная коллекция слов
         /// </summary>
-        public IEnumerable<Word> RandomWords { get; set; } = new List<Word>();
+        public List<Word> RandomWords { get; set; } = new List<Word>();
 
         /// <summary>
         /// Количество вариантов для перевода слова
@@ -48,6 +48,37 @@ namespace MyDictionary.ViewModels
         public int GetNumberOfWords()
         {
             return this.NumberOfWords;
+        }
+
+        public CheckWordsViewModel(List<Word> randomWords, int indexOfCheckedWord)
+        {
+            RandomWords = randomWords;
+            IndexOfCheckedWord = indexOfCheckedWord;
+        }
+
+        public CheckWordsViewModel(List<Word> randomWords, int indexOfCheckedWord, int idWord, int allQuestion, int goodAnswers, int badAnswers, string grades, int idSelectedAnswer) : this(randomWords, indexOfCheckedWord)
+        {
+            IndexOfCheckedWord = idWord;
+            AllQuestionsNumber = allQuestion;
+            GoodAnswersNumber = goodAnswers;
+            BadAnswersNumber = badAnswers;
+            Grades = grades;
+
+            AllQuestionsNumber++;
+
+            if (idSelectedAnswer == idWord)
+            {
+                GoodAnswersNumber++;
+                Grades = "Good job!!!";
+            }
+            else
+            {
+                BadAnswersNumber++;
+                Grades = "Bad, very bad!!!";
+            }
+
+            RandomWords = randomWords;
+            IndexOfCheckedWord = indexOfCheckedWord;
         }
     }
 }

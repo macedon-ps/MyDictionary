@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Azure.Identity;
+using Microsoft.AspNetCore.Mvc;
 using MyDictionary.Interfaces;
+using MyDictionary.Models;
+using MyDictionary.Utils;
+using MyDictionary.ViewModels;
+using System.Drawing;
+using System.Text.Json;
 
 namespace MyDictionary.Controllers
 {
@@ -20,6 +26,7 @@ namespace MyDictionary.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
+            
             return View();
         }
 
@@ -59,10 +66,24 @@ namespace MyDictionary.Controllers
             return View();
         }
         
+        public IActionResult GetPartOfSpeech()
+        {
+            return PartialView("ChoosePartOfSpeechPartial");
+        }
+
+        [HttpPost]
+        public IActionResult GetPartOfSpeech(List<string> partSpeech)
+        {
+            // TODO: использование выбор частей речи для вывода контента
+            var partSpeechJson = JsonSerializer.Serialize(partSpeech);
+                return View("CheckWords", partSpeechJson);
+        }
+
         /// <summary>
         /// Метод рандомного выбора и проверки слов
         /// </summary>
         /// <returns></returns>
+        /*
         public IActionResult CheckWords()
         {
             var randomWords = _words.GetRandomWords();
@@ -70,6 +91,26 @@ namespace MyDictionary.Controllers
 
             var viewModel = _words.GetCheckWordsViewModel(randomWords, indexOfCheckedWord);
   
+            return View(viewModel);
+        }*/
+
+        public IActionResult CheckWords(string? partSpeechJson)
+        {
+            var randomWords = new List<Word>();
+            if(partSpeechJson == null)
+            {
+                randomWords = _words.GetRandomWords();
+            }
+            else
+            {
+                var partSpeech = JsonSerializer.Deserialize<List<string>>(partSpeechJson);
+                randomWords = _words.GetRandomWords(partSpeech);
+            }
+            
+            var indexOfCheckedWord = WordsUtils.GetIndexCheckedWord(randomWords);
+
+            var viewModel = new CheckWordsViewModel(randomWords, indexOfCheckedWord);
+
             return View(viewModel);
         }
 
@@ -91,9 +132,9 @@ namespace MyDictionary.Controllers
                 // при нажатии на кнопку с вариантом ответа б. сгенерированы и отрендерены новые данные для списка слов и индекса выбранного слова (применятся в конце)
 
                 var newRandomWords = _words.GetRandomWords();
-                var newIndexOfCheckedWord = _words.GetIndexCheckedWord(newRandomWords);
+                var newIndexOfCheckedWord = WordsUtils.GetIndexCheckedWord(newRandomWords);
 
-                var viewModel = _words.GetCheckWordsViewModel(newRandomWords, newIndexOfCheckedWord, idWord, allQuestion, goodAnswers, badAnswers, grades, idSelectedAnswer);
+                var viewModel = new CheckWordsViewModel(newRandomWords, newIndexOfCheckedWord, idWord, allQuestion, goodAnswers, badAnswers, grades, idSelectedAnswer);
              
                 return View(viewModel);
             }
