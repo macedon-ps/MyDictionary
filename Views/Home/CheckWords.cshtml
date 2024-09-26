@@ -17,7 +17,7 @@
                         <p>@Model.RandomWords.FirstOrDefault(x => x.Id == Model.IndexOfCheckedWord).RusValue</p>
                     </span>
                 </div>
-                <div class="border-box inline">
+                <div class="info-box-left inline">
                     <div class="info-block">
                         <p>Index: @Model.IndexOfCheckedWord</p>
                         <p>Часть речи: @Model.RandomWords.First().PartOfSpeech</p>
@@ -43,6 +43,9 @@
                             asp-route-idSelectedAnswer="@item.Id" value="@item.EngValue" />
                         }
                     </div>
+                    <div class="inCenter">
+                        <input type="submit" class="nextWord" asp-controller="" asp-action="" value="Продолжить" />
+                    </div>
                     @{
                         var goodMarksLevel = 0.0m;
                         var badMarksLevel = 0.0m;
@@ -53,7 +56,7 @@
                             badMarksLevel = Math.Round((Model.BadAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
                         }
                     }
-                    <div class="border-box">
+                    <div class="info-box-right">
                         <div class="grades-block">
                             <div>Оценка:</div>
                             <div class="grades">@Model.Grades</div>

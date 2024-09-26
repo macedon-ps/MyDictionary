@@ -290,13 +290,17 @@ section:last-child, article:last-child {
 	padding: 1em;
 	border-radius: 10px;
 }
-.border-box {
-	/*margin-top: 2em;*/
-	margin: 6em auto 0;
+.info-box-left, .info-box-right {
 	padding: 0.5em;
 	border: solid 1px green;
 	border-radius: 10px;
 	background-color: #89b543;
+}
+.info-box-left {
+	margin: 6em auto 0;
+}
+.info-box-right {
+	margin: 2em auto 0;
 }
 .iconLink {
 	display: flex;
@@ -2263,7 +2267,21 @@ section:last-child, article:last-child {
 	margin: 0.3em auto 0.3em;
 	align-content: center;
 }
-.inline{
+.inCenter{
+	display:flex;
+	justify-content:center;
+	margin-top:2em;
+}
+.nextWord {
+	background-color: #8bb842;
+	padding: 0.5em;
+	margin: 0.3em auto 0.3em;
+	align-content: center;
+	color: white;
+	border:1px solid rgba(0, 0, 0, .125);
+	border-radius:0.25em;
+}
+.inline {
 	display: inline-block;
 }
 /*///////////////////////////////////////////////////////////////////////////////////////////*/
