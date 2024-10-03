@@ -4,7 +4,7 @@ using MyDictionary.ViewModels;
 
 namespace MyDictionary.Repository
 {
-    public class WordsRepositoryMoq : IWordsInterface
+    public class WordsRepositoryMoq : IWordMoqInterface
     {
         /// <summary>
         /// Коллекция слов в мокковом словаре
@@ -131,88 +131,6 @@ namespace MyDictionary.Repository
             // TODO: сделать проверку существуют ли в словаре слова данной части речи (для полной версии PartsOfSpeech)
 
             return currentRandomPartOfSpeech;
-        }
-
-        /// <summary>
-        /// Метод рандомного создания коллекции слов одной или нескольких частей речи, состоящей из заданного количества слов / не нужен в данной реализации
-        /// </summary>
-        /// <param name="partSpeech">список частей речи, выбранных пользователем</param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public List<Word> GetRandomWords(List<string> partSpeech)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Word> GetAllWords()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Word> GetWordsByPartOfSpeech(PartsOfSpeech partOfSpeech)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Word GetWordById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Word GetWordByRusValue(string rusValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Word GetWordByEngValue(string engValue)
-        {
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// Метод сохранения слова по его экземпляру и идентификатору / не нужен в данной реализации
-        /// </summary>
-        /// <param name="word">экземпляр слова</param>
-        /// <param name="id">идентификатор слова</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void SaveWoord(Word word, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Метод удаления слова по его экземпляру и идентификатору / / не нужен в данной реализации
-        /// </summary>
-        /// <param name="word">экземпляр слова</param>
-        /// <param name="id">идентификатор слова</param>
-        /// <exception cref="NotImplementedException"></exception>
-        public void DeleteWoord(Word word, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Sentence> GetAllSentences()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Word> GetSentencesByTence(Tenses tence)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Word GetSentenceById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveSentence(Word word, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteSentence(Word word, int id)
-        {
-            throw new NotImplementedException();
         }
     }
 }
