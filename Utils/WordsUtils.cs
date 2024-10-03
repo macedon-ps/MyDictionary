@@ -5,44 +5,6 @@ namespace MyDictionary.Utils
 {
     public class WordsUtils
     {
-        private readonly WordsDbContext _dbWords;
-        public static int[] _arrayAllWordsIndex;
-        public static int _allWordsNumber;
-
-        public WordsUtils(WordsDbContext dbWords)
-        {
-            _dbWords = dbWords;
-            _allWordsNumber = _dbWords.Words.Count();
-            _arrayAllWordsIndex = GetArrayOfWordsIndex();
-        }
-
-        public int[] GetArrayOfWordsIndex()
-        {
-            var nuberOfWords = _dbWords.Words.Count();
-            var arrayOfWordsIndex = new int[nuberOfWords];
-            var allWords = _dbWords.Words.ToList();
-            var i = 0;
-
-            foreach (var word in allWords)
-            {
-                arrayOfWordsIndex[i] = word.Id;
-                i++;
-            }
-
-            return arrayOfWordsIndex;
-        }
-
-        public Word GetRandomWord()
-        {
-            var rand = new Random();
-            var randomWordNumber = rand.Next(_allWordsNumber);
-            var randomWordIndex = _arrayAllWordsIndex[randomWordNumber];
-
-            var word = _dbWords.Words.FirstOrDefault(x => x.Id == randomWordIndex);
-
-            return word;
-        }
-
         /// <summary>
         /// Метод рандомного определения части речи
         /// </summary>
@@ -50,11 +12,11 @@ namespace MyDictionary.Utils
         public static int RandomChooseOfPartOfSpeach()
         {
             // Количество частей речи в перечислении PartsOfSpeech
-            var numberPartOfSpeach = Enum.GetNames(typeof(PartsOfSpeech)).Length;
+            var numberAllPartOfSpeach = Enum.GetNames(typeof(PartsOfSpeech)).Length;
 
             // Рандомное определение части речи
             var rand = new Random();
-            //var currentRandomPartOfSpeech = rand.Next(numberPartOfSpeach);
+            //var currentRandomPartOfSpeech = rand.Next(numberAllPartOfSpeach);
             // м. вручную выставить: 0 - существительные, 1 - глаголы, 2 - прилагательные, 4 - наречмя и т.д.
             var currentRandomPartOfSpeech = 1;
 
@@ -133,5 +95,27 @@ namespace MyDictionary.Utils
             return indexOfWord;
         }
 
+        public static int RandomChooseOfEnglishTence()
+        {
+            // Количество времен в английском языке в перечислении Tenses
+            var numberAllTences = Enum.GetNames(typeof(Tenses)).Length;
+
+            // Рандомное определение времени английского языка
+
+            // var rand = new Random();
+            // var currentRandomTence = rand.Next(numberAllTences);
+            // м. вручную выставить:
+            // 0 - PresentSimple, 1 - PresentContinuous, 2 - PresentPerfect, 3 - PresentPerfectContinuous,
+            // 4 - PastSimple, 5 - PastContinuous, 6 - PastPerfect, 7 - PastPerfectContinuous,
+            // 8 - FutureSimple, 9 - FutureContinuous, 10 - FuturePerfect, 11 - FuturePerfectContinuous,
+            // 12 -Mixt
+            var currentRandomTence = 0;
+
+            // TODO: м.б. сделать возможным выбор пользователем времени английского языка самостоятельно
+
+            // TODO: сделать проверку существуют ли в словаре предложения данного времени английского языка (для полной версии Tenses)
+
+            return currentRandomTence;
+        }
     }
 }

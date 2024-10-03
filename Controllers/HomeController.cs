@@ -150,5 +150,14 @@ namespace MyDictionary.Controllers
             var words = _words.GetAllWords();
             return View(words);
         }
+
+        public IActionResult CheckSentences()
+        {
+            var randomSentence = _words.GetRandomSentence();
+            
+            var viewModel = new CheckSentencesViewModel(randomSentence);
+
+            return View(viewModel);
+        }
     }
 }

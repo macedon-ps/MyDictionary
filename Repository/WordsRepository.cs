@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MyDictionary.DBContext;
+﻿using MyDictionary.DBContext;
 using MyDictionary.Interfaces;
 using MyDictionary.Models;
 using MyDictionary.Utils;
@@ -9,13 +8,14 @@ namespace MyDictionary.Repository
 {
     public class WordsRepository : IWordsInterface
     {
-        private readonly WordsDbContext _dbWords;
-        
-        public WordsRepository(WordsDbContext dbWords)
+        private readonly WordsDbContext _dbContext;
+        public WordsRepository(WordsDbContext dbContext)
         {
-            _dbWords = dbWords;
+            _dbContext = dbContext;
         }
-            
+        
+        // Методы для слов
+
         /// <summary>
         /// Метод рандомного создания коллекции слов одной части речи, состоящей из заданного количества слов
         /// </summary>
@@ -32,16 +32,14 @@ namespace MyDictionary.Repository
 
             // 3. Создание коллекции слов List<Word> в количестве number слов
             var randomWordsList = new List<Word>();
-            var utils = new WordsUtils(_dbWords);
-
+            
             for (int i = 0; i < number; i++)
             {
                 var isAddedNewWord = false;
 
                 while (!isAddedNewWord)
                 {
-                    
-                    var randomWord = utils.GetRandomWord();
+                    var randomWord = GetRandomWord();
                         
                     if ((int)randomWord.PartOfSpeech == numberOfPartOfSpeech && !randomWordsList.Contains(randomWord))
                     {
@@ -69,15 +67,14 @@ namespace MyDictionary.Repository
 
             // 3. Создание коллекции слов List<Word> в количестве number слов
             var randomWordsList = new List<Word>();
-            var utils = new WordsUtils(_dbWords);
-
+            
             for (int i = 0; i < number; i++)
             {
                 var isAddedNewWord = false;
 
                 while (!isAddedNewWord)
                 {
-                    var randomWord = utils.GetRandomWord();
+                    var randomWord = GetRandomWord();
 
                     if ((int)randomWord.PartOfSpeech == numberOfPartOfSpeech && !randomWordsList.Contains(randomWord))
                     {
@@ -88,15 +85,49 @@ namespace MyDictionary.Repository
             }
             return randomWordsList;
         }
-                
-        public List<Word> GetAllWords()
-        {
-            var allWords = _dbWords.Words.ToList();
 
-            return allWords;
+        public Word GetRandomWord()
+        {
+            var rand = new Random();
+            var numberOfAllWodrs = GetNumberOfAllWords();
+            var randomWordNumber = rand.Next(numberOfAllWodrs);
+
+            var arrayAllWordsIndex = GetArrayOfWordsIndex();
+            var randomWordIndex = arrayAllWordsIndex[randomWordNumber];
+
+            var word = _dbContext.Words.FirstOrDefault(x => x.Id == randomWordIndex);
+
+            return word;
         }
 
-        public List<Word> GetWordsByPartOfSpeech(PartsOfSpeech partOfSpeech)
+        public List<Word> GetAllWords()
+        {
+            return _dbContext.Words.ToList();
+        }
+
+        public int GetNumberOfAllWords()
+        {
+            return _dbContext.Words.Count();
+        }
+
+        public int[] GetArrayOfWordsIndex()
+        {
+            var nuberOfWords = _dbContext.Words.Count();
+            var arrayOfWordsIndex = new int[nuberOfWords];
+            var allWords = _dbContext.Words.ToList();
+            var i = 0;
+
+            foreach (var word in allWords)
+            {
+                arrayOfWordsIndex[i] = word.Id;
+                i++;
+            }
+
+            return arrayOfWordsIndex;
+        }
+
+        /* не реализовано
+        public List<Word> GetWordsByPartOfSpeech(int partOfSpeech)
         {
             throw new NotImplementedException();
         }
@@ -125,13 +156,66 @@ namespace MyDictionary.Repository
         {
             throw new NotImplementedException();
         }
+        */
 
-        public List<Sentence> GetAllSentences()
+        // Методы для предложений
+        public Sentence GetRandomSentence()
         {
-            throw new NotImplementedException();
+            //1. Рандомный выбор времени англ. языка
+            int numberOfTence = WordsUtils.RandomChooseOfEnglishTence();
+
+            var sentence = GetRandomSentenceByTence(numberOfTence);
+
+            return sentence;
+            
         }
 
-        public List<Word> GetSentencesByTence(Tenses tence)
+        public Sentence GetRandomSentenceByTence(int numberOfTence)
+        {
+            var rand = new Random();
+            var numberOfAllSentences = GetNumberOfAllSentences();
+            var randomSentenceNumber = rand.Next(numberOfAllSentences);
+
+            var arrayAllSentencesIndex = GetArrayOfSentencesIndex();
+            var randomSentenceIndex = arrayAllSentencesIndex[randomSentenceNumber];
+
+            var sentence = GetSentenceById(randomSentenceIndex);
+            
+            return sentence;
+        }
+        public List<Sentence> GetAllSentences()
+        {
+            return _dbContext.Sentences.ToList();
+        }
+
+        public Sentence GetSentenceById(int id)
+        {
+            return _dbContext.Sentences.FirstOrDefault(x => x.Id == id);
+        }
+
+        public int GetNumberOfAllSentences()
+        {
+            return _dbContext.Sentences.Count();
+        }
+
+        public int[] GetArrayOfSentencesIndex()
+        {
+            var nuberOfSentences = _dbContext.Sentences.Count();
+            var arrayOfSentencesIndex = new int[nuberOfSentences];
+            var allSentences = _dbContext.Sentences.ToList();
+            var i = 0;
+
+            foreach (var sentence in allSentences)
+            {
+                arrayOfSentencesIndex[i] = sentence.Id;
+                i++;
+            }
+
+            return arrayOfSentencesIndex;
+        }
+
+        /* не реализовано 
+        public List<Word> GetSentencesByTence(int tence)
         {
             throw new NotImplementedException();
         }
@@ -149,8 +233,7 @@ namespace MyDictionary.Repository
         public void DeleteSentence(Word word, int id)
         {
             throw new NotImplementedException();
-        }
-
-        
+        } 
+         */
     }
 }

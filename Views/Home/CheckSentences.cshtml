@@ -1,0 +1,68 @@
+﻿@model CheckSentencesViewModel;
+
+
+<div class="homePage">
+
+    @await Html.PartialAsync("HomeButtonPartial")
+
+    <div class="homeHeader">
+
+        <h1 class="title">My dictionary</h1>
+        <hr class="horizontal-line" /><br />
+
+        <div class="displayFlex">
+            <div class="col-3 col-12-medium flexColumn">
+                <div class="card inline">
+                    <span>
+                        <p>@Model.RandomSentence.RusValue</p>
+                    </span>
+                </div>
+                <div class="info-box-left inline">
+                    <div class="info-block">
+                        <p>Index: </p>
+                        <p>Время английского языка: @Model.RandomSentence.Tense</p>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-8 col-12-medium marginLeft3">
+
+                <form method="post">
+
+                    <div class="displayFlexRow wrap">
+                        @Model.RandomSentence.EngValue
+                    </div>
+                    <div class="inCenter">
+                        <input type="submit" class="nextWord" asp-controller="" asp-action="" value="Продолжить" />
+                    </div>
+                    @{
+                        /*var goodMarksLevel = 0.0m;
+                        var badMarksLevel = 0.0m;
+
+                        if (Model.AllQuestionsNumber != 0)
+                        {
+                            goodMarksLevel = Math.Round((Model.GoodAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
+                            badMarksLevel = Math.Round((Model.BadAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
+                        }*/
+                    }
+                    <div class="info-box-right">
+                        <div class="grades-block">
+                            <div>Оценка:</div>
+                            <div class="grades">тра та та</div>
+                        </div>
+                        <div class="flexRow space-between statistic-block">
+                            <div><p>Всего вопросов: о го го</p></div>
+                            <div>
+                                <p>Правильно: сколько то ( %)</p>
+                            </div>
+                            <div>
+                                <p>Не правильно: сколько то ( %)</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
