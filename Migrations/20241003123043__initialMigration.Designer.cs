@@ -11,8 +11,8 @@ using MyDictionary.DBContext;
 namespace MyDictionary.Migrations
 {
     [DbContext(typeof(WordsDbContext))]
-    [Migration("20240919210149__firstMigration")]
-    partial class _firstMigration
+    [Migration("20241003123043__initialMigration")]
+    partial class _initialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

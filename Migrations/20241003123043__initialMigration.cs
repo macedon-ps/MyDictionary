@@ -5,7 +5,7 @@
 namespace MyDictionary.Migrations
 {
     /// <inheritdoc />
-    public partial class _firstMigration : Migration
+    public partial class _initialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
