@@ -2251,6 +2251,9 @@ section:last-child, article:last-child {
 	display: flex;
 	flex-direction: column;
 }
+.errorHeader {
+	padding: 2em;
+}
 .flexRow {
 	display: flex;
 }

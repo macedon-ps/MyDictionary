@@ -1,11 +1,11 @@
-﻿using Azure.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MyDictionary.DBContext;
 using MyDictionary.Interfaces;
 using MyDictionary.Models;
 using MyDictionary.Utils;
 using MyDictionary.ViewModels;
-using System.Drawing;
 using System.Text.Json;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyDictionary.Controllers
 {
@@ -13,11 +13,13 @@ namespace MyDictionary.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IWordsInterface _words;
+        private readonly WordsDbContext _dbContext;
 
-        public HomeController(ILogger<HomeController> logger, IWordsInterface words)
+        public HomeController(ILogger<HomeController> logger, IWordsInterface words, WordsDbContext dbContext)
         {
             _logger = logger;
             _words = words;
+            _dbContext = dbContext;
         }
 
         /// <summary>
@@ -74,9 +76,37 @@ namespace MyDictionary.Controllers
         [HttpPost]
         public IActionResult GetPartOfSpeech(List<string> partSpeech)
         {
-            // TODO: использование выбор частей речи для вывода контента
-            var partSpeechJson = JsonSerializer.Serialize(partSpeech);
-                return View("CheckWords", partSpeechJson);
+            try
+            {
+                // TODO: проверка, есть ли выбранные пользователем части речи в словах в БД
+                var utils = new WordsUtils(_dbContext);
+                
+                var isMatchPartsOfSpeech = utils.TestingOfUsersChoose(partSpeech);
+
+                // TODO: проверка, есть ли хотя бы 5 слов по каждой из выбранных частей речи в БД
+                var isMatchWordsNumberOfPartOfSpeech = WordsUtils.TestingOfWordsNumber(partSpeech);
+
+                if(isMatchPartsOfSpeech && isMatchWordsNumberOfPartOfSpeech)
+                {
+                    var partSpeechJson = JsonSerializer.Serialize(partSpeech);
+
+                    // устанавливаем переменную сесии partSpeechJson
+                    HttpContext.Session.SetString("listPartOfSpeech", partSpeechJson);
+                }
+                else
+                {
+                    var errorViewModel = new ErrorViewModel("К сожалению, не все выбранные части речи представлены примерами слов в БД");
+                    return View("Error", errorViewModel);
+                }
+            
+                return RedirectToAction("CheckWords", "Home");
+            }
+            catch (Exception error) 
+            {
+                var errorViewModel = new ErrorViewModel(error.Message);
+                return View("Error", errorViewModel);
+            }
+            
         }
 
         /// <summary>
@@ -94,16 +124,19 @@ namespace MyDictionary.Controllers
             return View(viewModel);
         }*/
 
-        public IActionResult CheckWords(string? partSpeechJson)
+        public IActionResult CheckWords()
         {
+            var partSpeechJson = HttpContext.Session.GetString("listPartOfSpeech");
+            var partSpeech = JsonSerializer.Deserialize<List<string>>(partSpeechJson);
+
             var randomWords = new List<Word>();
-            if(partSpeechJson == null)
+            
+            if(partSpeech == null)
             {
                 randomWords = _words.GetRandomWords();
             }
             else
             {
-                var partSpeech = JsonSerializer.Deserialize<List<string>>(partSpeechJson);
                 randomWords = _words.GetRandomWords(partSpeech);
             }
             
@@ -138,11 +171,12 @@ namespace MyDictionary.Controllers
              
                 return View(viewModel);
             }
-            catch (Exception ex) 
-            { 
-                return View("Error", ex);
+            catch (Exception error)
+            {
+                var errorViewModel = new ErrorViewModel(error.Message);
+                return View("Error", errorViewModel);
             }
-            
+
         }
 
         public IActionResult GetAllWords()

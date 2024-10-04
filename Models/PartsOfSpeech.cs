@@ -12,8 +12,8 @@
     /// </summary>
     public enum PartsOfSpeech
     {
-        Noun, Verb, Adjective
+        //Noun, Verb, Adjective
         // полная версия
-        // Noun, Verb, Adjective, Adverb, Pronoun, Preposition, Conjunction, Interjection
+         Noun, Verb, Adjective, Adverb, Pronoun, Preposition, Conjunction, Interjection
     }
 }

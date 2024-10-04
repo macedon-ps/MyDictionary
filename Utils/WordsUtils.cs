@@ -1,10 +1,18 @@
-﻿using MyDictionary.DBContext;
+﻿using Microsoft.Extensions.FileProviders;
+using MyDictionary.DBContext;
 using MyDictionary.Models;
 
 namespace MyDictionary.Utils
 {
     public class WordsUtils
     {
+
+        private readonly WordsDbContext _dbContext;
+        public WordsUtils(WordsDbContext dbContext) 
+        { 
+            _dbContext = dbContext;
+        }
+                
         /// <summary>
         /// Метод рандомного определения части речи
         /// </summary>
@@ -116,6 +124,60 @@ namespace MyDictionary.Utils
             // TODO: сделать проверку существуют ли в словаре предложения данного времени английского языка (для полной версии Tenses)
 
             return currentRandomTence;
+        }
+
+        public bool TestingOfUsersChoose(List<string> partSpeech)
+        {
+            // TODO: реализовать метод TestingOfUsersChoose()
+            var areExistResult = true;
+
+            foreach (var speech in partSpeech) 
+            {
+                switch (speech)
+                {
+                    case "Noun":
+                        var noun = _dbContext.Words.FirstOrDefault(x => x.PartOfSpeech == PartsOfSpeech.Noun) ?? null;
+                        areExistResult = noun != null;
+                        break;
+                    case "Verb":
+                        var verb = _dbContext.Words.FirstOrDefault(x => x.PartOfSpeech == PartsOfSpeech.Verb) ?? null;
+                        areExistResult = verb != null;
+                        break;
+                    case "Adjective":
+                        var ajective = _dbContext.Words.FirstOrDefault(x => x.PartOfSpeech == PartsOfSpeech.Adjective) ?? null;
+                        areExistResult = ajective != null;
+                        break;
+                    case "Adverb":
+                        var adverb = _dbContext.Words.FirstOrDefault(x => x.PartOfSpeech == PartsOfSpeech.Adverb) ?? null;
+                        areExistResult = adverb != null;
+                        break;
+                    case "Pronoun":
+                        var pronoun = _dbContext.Words.FirstOrDefault(x => x.PartOfSpeech == PartsOfSpeech.Pronoun) ?? null;
+                        areExistResult = pronoun != null;
+                        break;
+                    case "Preposition":
+                        var preposition = _dbContext.Words.FirstOrDefault(x => x.PartOfSpeech == PartsOfSpeech.Preposition) ?? null;
+                        areExistResult = preposition != null;
+                        break;
+                    case "Conjunction":
+                        var conjuction = _dbContext.Words.FirstOrDefault(x => x.PartOfSpeech == PartsOfSpeech.Conjunction) ?? null;
+                        areExistResult = conjuction != null;
+                        break;
+                    case "Interjection":
+                        var interjection = _dbContext.Words.FirstOrDefault(x => x.PartOfSpeech == PartsOfSpeech.Interjection) ?? null;
+                        areExistResult = interjection != null;
+                        break;
+                }
+                if(!areExistResult) break;
+            }
+
+            return areExistResult;
+        }
+
+        public static bool TestingOfWordsNumber(List<string> partSpeech)
+        {
+            // TODO: реализовать метод TestingOfWordsNumber()
+            return true;
         }
     }
 }

@@ -15,6 +15,10 @@ namespace MyDictionary
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<IWordsInterface, WordsRepository>();
 
+            builder.Services.AddDistributedMemoryCache();// добавляем сервисы сессии
+            builder.Services.AddSession(options =>
+                    options.IdleTimeout = TimeSpan.FromHours(1));  
+
             builder.Services.AddDbContext<WordsDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -32,6 +36,8 @@ namespace MyDictionary
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 
