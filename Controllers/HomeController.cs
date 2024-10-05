@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyDictionary.DBContext;
 using MyDictionary.Interfaces;
-using MyDictionary.Models;
 using MyDictionary.Utils;
 using MyDictionary.ViewModels;
 using System.Text.Json;
@@ -108,16 +107,16 @@ namespace MyDictionary.Controllers
         /// <summary>
         /// Метод вывода модального окна с выбором частей речи (POST версия)
         /// </summary>
-        /// <param name="partSpeech"></param>
+        /// <param name="partSpeech">коллекция частей речи по выбору пользователя</param>
         /// <returns></returns>
         [HttpPost]
         public IActionResult GetPartOfSpeech(List<string> partSpeech)
         {
             try
             {
-                // проверка, есть ли выбранные пользователем части речи в словах в БД
                 var utils = new WordsUtils(_dbContext);
 
+                // проверка, есть ли выбранные пользователем части речи в словах в БД
                 var isMatchPartsOfSpeech = utils.TestingOfUsersPSChoose(partSpeech);
 
                 // TODO: проверка, есть ли хотя бы 5 слов по каждой из выбранных частей речи в БД
@@ -154,22 +153,13 @@ namespace MyDictionary.Controllers
             try
             {
                 // получаем времена англ.языка либо по выбору пользователя, либо по дефолту
-                var defoultEnglishTences = "[\"Noun\",\"Verb\",\"Adjective\",\"Adverb\"]";
+                var defoultEnglishTences = "[\"PresentSimple\",\"PastSimple\",\"FutureSimple\"]";
 
-                var englishTencesJson = HttpContext.Session.GetString("listOfEnglishTences") ?? defoultEnglishTences;
-                var englishTences = JsonSerializer.Deserialize<List<string>>(englishTencesJson);
+                var tencesJson = HttpContext.Session.GetString("listTences") ?? defoultEnglishTences;
+                var tences = JsonSerializer.Deserialize<List<string>>(tencesJson);
 
-                var randomSentence = new Sentence();
-
-                if (englishTences == null)
-                {
-                    randomSentence = _words.GetRandomSentence();
-                }
-                else
-                {
-                    randomSentence = _words.GetRandomSentence(englishTences);
-                }
-
+                var randomSentence = _words.GetRandomSentence(tences);
+               
                 var viewModel = new CheckSentencesViewModel(randomSentence);
 
                 return View(viewModel);
@@ -180,6 +170,56 @@ namespace MyDictionary.Controllers
                 return View("Error", errorViewModel);
             }
         }
+
+        /// <summary>
+        /// Метод вывода модального окна с выбором времен англ. языка
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult GetTence()
+        {
+            return PartialView("ChooseTencePartial");
+        }
+
+        /// <summary>
+        /// Метод вывода модального окна с выбором времен англ. языка (POST версия)
+        /// </summary>
+        /// <param name="tences">коллекция времен англ. языка по выбору пользователя</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GetTence(List<string> tences)
+        {
+            try
+            {
+                var utils = new WordsUtils(_dbContext);
+
+                // проверка, есть ли выбранные пользователем времена англ. языка в словах в БД
+                var isMatchTences = utils.TestingOfUsersTencesChoose(tences);
+
+                // TODO: проверка, есть ли хотя бы 5 слов по каждой из выбранных частей речи в БД
+                var isMatchSentenceNumberOfTence = WordsUtils.TestingOfSentenceNumber(tences);
+
+                if (isMatchTences && isMatchSentenceNumberOfTence)
+                {
+                    var tencesJson = JsonSerializer.Serialize(tences);
+
+                    // устанавливаем переменную сесии partSpeechJson
+                    HttpContext.Session.SetString("listTences", tencesJson);
+                }
+                else
+                {
+                    var errorViewModel = new ErrorViewModel("К сожалению, не все выбранные времена англ. языка представлены примерами слов в БД");
+                    return View("Error", errorViewModel);
+                }
+
+                return RedirectToAction("CheckSentences", "Home");
+            }
+            catch (Exception error)
+            {
+                var errorViewModel = new ErrorViewModel(error.Message);
+                return View("Error", errorViewModel);
+            }
+        }
+
 
         /// <summary>
         /// Метод вывода страницы ввода, редактирования, удаления слов / предложений / грамматики

@@ -114,20 +114,6 @@ namespace MyDictionary.Repository
         // Методы для предложений
 
         /// <summary>
-        /// Метод рандомного выбора предложения
-        /// </summary>
-        /// <returns></returns>
-        public Sentence GetRandomSentence()
-        {
-            //1. Рандомный выбор времени англ. языка
-            int numberOfTence = WordsUtils.RandomChooseOfEnglishTence();
-
-            var sentence = GetRandomSentenceByTence(numberOfTence);
-
-            return sentence;
-        }
-
-        /// <summary>
         /// Метод рандомного предложения для заданной коллекции времен англ. языка
         /// </summary>
         /// <param name="englishTences">коллекция времен англ. языка</param>
@@ -135,7 +121,12 @@ namespace MyDictionary.Repository
         /// <exception cref="NotImplementedException"></exception>
         public Sentence GetRandomSentence(List<string> englishTences)
         {
-            throw new NotImplementedException();
+            //1. Рандомный выбор времени англ. языка
+            int numberOfTence = WordsUtils.RandomChooseOfTence(englishTences);
+
+            var sentence = GetRandomTenceSentence(numberOfTence);
+
+            return sentence;
         }
 
         /// <summary>
@@ -143,48 +134,60 @@ namespace MyDictionary.Repository
         /// </summary>
         /// <param name="numberOfTence">время англ. языка</param>
         /// <returns></returns>
-        public Sentence GetRandomSentenceByTence(int numberOfTence)
+        public Sentence GetRandomTenceSentence(int numberOfTence)
         {
             var rand = new Random();
-            var numberOfAllSentences = GetNumberOfAllSentences();
-            var randomSentenceNumber = rand.Next(numberOfAllSentences);
+            var numberSentencesOfTence = GetNumberOfSentencesOfTence(numberOfTence);
+            var randomSentenceNumber = rand.Next(numberSentencesOfTence);
 
-            var arrayAllSentencesIndex = GetArrayOfSentencesIndex();
-            var randomSentenceIndex = arrayAllSentencesIndex[randomSentenceNumber];
+            var arrayOfTenceSentencesIndexes = GetArrayOfTenceSentencesIndexes(numberOfTence);
+            var randomSentenceIndex = arrayOfTenceSentencesIndexes[randomSentenceNumber];
 
-            var sentence = GetSentenceById(randomSentenceIndex);
-            
+            var sentence = _dbContext.Sentences.FirstOrDefault(x => x.Id == randomSentenceIndex);
+
             return sentence;
         }
-        public List<Sentence> GetAllSentences()
-        {
-            return _dbContext.Sentences.ToList();
-        }
 
-        public Sentence GetSentenceById(int id)
+        /// <summary>
+        /// Метод создания массива идентификаторов слов заданного времени англ. языка
+        /// </summary>
+        /// <param name="numberOfTence">номер заданного времени англ. языка</param>
+        /// <returns></returns>
+        public int[] GetArrayOfTenceSentencesIndexes(int numberOfTence)
         {
-            return _dbContext.Sentences.FirstOrDefault(x => x.Id == id);
-        }
+            var listSentencesOfTence = GetListSentencesOfTence(numberOfTence);
+            var arraySize = listSentencesOfTence.Count;
 
-        public int GetNumberOfAllSentences()
-        {
-            return _dbContext.Sentences.Count();
-        }
-
-        public int[] GetArrayOfSentencesIndex()
-        {
-            var nuberOfSentences = _dbContext.Sentences.Count();
-            var arrayOfSentencesIndex = new int[nuberOfSentences];
-            var allSentences = _dbContext.Sentences.ToList();
+            var arrayOfSentencesIndex = new int[arraySize];
             var i = 0;
 
-            foreach (var sentence in allSentences)
+            foreach (var sentence in listSentencesOfTence)
             {
                 arrayOfSentencesIndex[i] = sentence.Id;
                 i++;
             }
 
             return arrayOfSentencesIndex;
+        }
+
+        /// <summary>
+        /// Метод получения количества всех слов заданного времени англ. языка
+        /// </summary>
+        /// <param name="numberOfTence">номер заданного времени англ. языка</param>
+        /// <returns></returns>
+        public int GetNumberOfSentencesOfTence(int numberOfTence)
+        {
+            return _dbContext.Sentences.Where(x => (int)x.Tense == numberOfTence).Count();
+        }
+
+        /// <summary>
+        /// Метод получения коллекции слов заданного времени англ. языка
+        /// </summary>
+        /// <param name="numberOfTence">номер заданного времени англ. языка</param>
+        /// <returns></returns>
+        public List<Sentence> GetListSentencesOfTence(int numberOfTence)
+        {
+            return _dbContext.Sentences.Where(x => (int)x.Tense == numberOfTence).ToList();
         }
     }
 }

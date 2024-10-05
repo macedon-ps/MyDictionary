@@ -1,0 +1,73 @@
+﻿<div class="modal fade" id="chooseTence" tabindex="-1" role="dialog" aria-labelledby="chooseTenceLabel" aria-hidden="true">
+    >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="chooseTenceLabel">Выберите время английского языка</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Home" asp-action="GetTence">
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="PresentSimple" />
+                        <label class="formLabel">PresentSimple</label>
+                    </div> <div class="form-group">
+                        <input type="checkbox" name="tences" value="PresentContinuous" />
+                        <label class="formLabel">PresentContinuous</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="PresentPerfect" />
+                        <label class="formLabel">PresentPerfect</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="PresentPerfectContinuous" />
+                        <label class="formLabel">PresentPerfectContinuous</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="PastSimple" />
+                        <label class="formLabel">PastSimple</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="PastContinuous" />
+                        <label class="formLabel">PastContinuous</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="PastPerfect" />
+                        <label class="formLabel">PastPerfect</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="PastPerfectContinuous" />
+                        <label class="formLabel">PastPerfectContinuous</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="FutureSimple" />
+                        <label class="formLabel">FutureSimple</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="FutureContinuous" />
+                        <label class="formLabel">FutureContinuous</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="FuturePerfect" />
+                        <label class="formLabel">FuturePerfect</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="FuturePerfectContinuous" />
+                        <label class="formLabel">FuturePerfectContinuous</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="checkbox" name="tences" value="Mixt" />
+                        <label class="formLabel">Mixt</label>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

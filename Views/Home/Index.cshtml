@@ -7,17 +7,28 @@
         
         <h1 class="title">My dictionary</h1>
         <hr class="horizontal-line" /><br />
+        <p>Тут будет функционал использования своего пользовательского словаря.</p>
 
         <div class="displayFlex row">
             <form asp-controller="Home" asp-action="GetPartOfSpeech">
-                <p>Тут будет функционал использования своего пользовательского словаря.</p>
                 <button type="button" class="chooseButton"
-                        data-toggle="modal" data-target="#chooseItem">Выбрать часть речи
+                    data-toggle="modal"
+                    data-target="#choosePartOfSpeech"
+                >Выбрать часть речи
                 </button>
             </form>
-            
+        </div>
+        <div class="displayFlex row">
+            <form asp-controller="Home" asp-action="GetTence">
+                <button type="button" class="chooseButton"
+                    data-toggle="modal"
+                    data-target="#chooseTence"
+                >Выбрать время англ. языка
+                </button>
+            </form>
         </div>
     </div>
 
  </div>
 @await Html.PartialAsync("ChoosePartOfSpeechPartial")
+@await Html.PartialAsync("ChooseTencePartial")

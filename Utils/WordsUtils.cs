@@ -21,7 +21,7 @@ namespace MyDictionary.Utils
         /// <exception cref="NotImplementedException"></exception>
         public static int RandomChooseOfPartOfSpeach(List<string> partSpeech)
         {
-            // преобразование List<string> partSpeech в массив чисел - значений частей речи из enum PartsOfSpeech
+            // преобразование List<string> partSpeech в int[]
             var listSize = partSpeech.Count;
             var arraySelectedPS = new int[listSize];
             var numberOfPS = 0;
@@ -81,34 +81,16 @@ namespace MyDictionary.Utils
             return indexOfWord;
         }
 
-        public static int RandomChooseOfEnglishTence()
-        {
-            // Количество времен в английском языке в перечислении Tenses
-            var numberAllTences = Enum.GetNames(typeof(Tences)).Length;
-
-            // Рандомное определение времени английского языка
-
-            // var rand = new Random();
-            // var currentRandomTence = rand.Next(numberAllTences);
-            // м. вручную выставить:
-            // 0 - PresentSimple, 1 - PresentContinuous, 2 - PresentPerfect, 3 - PresentPerfectContinuous,
-            // 4 - PastSimple, 5 - PastContinuous, 6 - PastPerfect, 7 - PastPerfectContinuous,
-            // 8 - FutureSimple, 9 - FutureContinuous, 10 - FuturePerfect, 11 - FuturePerfectContinuous,
-            // 12 -Mixt
-            var currentRandomTence = 8;
-
-            // TODO: м.б. сделать возможным выбор пользователем времени английского языка самостоятельно
-
-            // TODO: сделать проверку существуют ли в словаре предложения данного времени английского языка (для полной версии Tenses)
-
-            return currentRandomTence;
-        }
-
+        /// <summary>
+        /// Метод проверки частей речи, выбранных пользователем, на предмет наличия для них слов в БД
+        /// </summary>
+        /// <param name="partSpeech">части речи, выбранные пользователем</param>
+        /// <returns></returns>
         public bool TestingOfUsersPSChoose(List<string> partSpeech)
         {
             var areExistResult = true;
 
-            foreach (var speech in partSpeech) 
+            foreach (var speech in partSpeech)
             {
                 switch (speech)
                 {
@@ -145,15 +127,120 @@ namespace MyDictionary.Utils
                         areExistResult = interjection != null;
                         break;
                 }
-                if(!areExistResult) break;
+                if (!areExistResult) break;
             }
 
             return areExistResult;
         }
 
+        /// <summary>
+        /// Метод проверки достаточного количества слов для каждой части речи
+        /// </summary>
+        /// <param name="partSpeech">части речи, выбранные пользователем</param>
+        /// <returns></returns>
         public static bool TestingOfWordsNumber(List<string> partSpeech)
         {
             // TODO: реализовать метод TestingOfWordsNumber()
+            return true;
+        }
+
+        /// <summary>
+        /// Метод рандомного определения времени англ. языка из тех, что выбраны пользователем
+        /// </summary>
+        /// <param name="Tences">список времен англ. языка, выбранных пользователем</param>
+        /// <returns></returns>
+        public static int RandomChooseOfTence(List<string> Tences)
+        {
+            // Количество времен в английском языке в перечислении Tenses
+            var numberAllTences = Enum.GetNames(typeof(Tences)).Length;
+            /* номера времен англ. языка
+            0 - PresentSimple, 1 - PresentContinuous, 2 - PresentPerfect, 3 - PresentPerfectContinuous,
+            4 - PastSimple, 5 - PastContinuous, 6 - PastPerfect, 7 - PastPerfectContinuous,
+            8 - FutureSimple, 9 - FutureContinuous, 10 - FuturePerfect, 11 - FuturePerfectContinuous,
+            12 -Mixt 
+            */
+
+            var listSize = Tences.Count;
+            var arraySelectedTences = new int[listSize];
+            var numberOfTences = 0;
+
+            var i = 0;
+            foreach (var item in Tences)
+            {
+                switch (item)
+                {
+                    case "PresentSimple":
+                        numberOfTences = 0;
+                        break;
+                    case "PresentContinuous":
+                        numberOfTences = 1;
+                        break;
+                    case "PresentPerfect":
+                        numberOfTences = 2;
+                        break;
+                    case "PresentPerfectContinuous":
+                        numberOfTences = 3;
+                        break;
+                    case "PastSimple":
+                        numberOfTences = 4;
+                        break;
+                    case "PastContinuous":
+                        numberOfTences = 5;
+                        break;
+                    case "PastPerfect":
+                        numberOfTences = 6;
+                        break;
+                    case "PastPerfectContinuous":
+                        numberOfTences = 7;
+                        break;
+                    case "FutureSimple":
+                        numberOfTences = 8;
+                        break;
+                    case "FutureContinuous":
+                        numberOfTences = 9;
+                        break;
+                    case "FuturePerfect":
+                        numberOfTences = 10;
+                        break;
+                    case "FuturePerfectContinuous":
+                        numberOfTences = 11;
+                        break;
+                    case "Mixt":
+                        numberOfTences = 12;
+                        break;
+                }
+                arraySelectedTences[i] = numberOfTences;
+                i++;
+            }
+
+            var rand = new Random();
+            var randomNumberOfTences = rand.Next(listSize);
+            var numberTence = arraySelectedTences[randomNumberOfTences];
+
+            return numberTence;
+        }
+
+        /// <summary>
+        /// Метод проверки времен англ. языка, выбранных пользователем, на предмет наличия для них слов в БД
+        /// </summary>
+        /// <param name="tences">времена англ. языка, выбранные пользователем</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public bool TestingOfUsersTencesChoose(List<string> tences)
+        {
+            // TODO: реализовать метод TestingOfUsersTencesChoose()
+            return true;
+        }
+
+        /// <summary>
+        /// Метод проверки достаточного количества слов для каждого времени англ. языка
+        /// </summary>
+        /// <param name="tences">времена англ. языка, выбранные пользователем</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public static bool TestingOfSentenceNumber(List<string> tences)
+        {
+            // TODO: реализовать метод TestingOfSentenceNumber()
             return true;
         }
     }
