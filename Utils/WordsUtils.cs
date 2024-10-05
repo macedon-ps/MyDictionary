@@ -228,8 +228,69 @@ namespace MyDictionary.Utils
         /// <exception cref="NotImplementedException"></exception>
         public bool TestingOfUsersTencesChoose(List<string> tences)
         {
-            // TODO: реализовать метод TestingOfUsersTencesChoose()
-            return true;
+            var areExistResult = true;
+
+            foreach (var tence in tences)
+            {
+                switch (tence)
+                {
+                    case "PresentSimple":
+                        var presentSimple = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.PresentSimple) ?? null;
+                        areExistResult = presentSimple != null;
+                        break;
+                    case "PresentContinuous":
+                        var presentContinuous = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.PresentContinuous) ?? null;
+                        areExistResult = presentContinuous != null;
+                        break;
+                    case "PresentPerfect":
+                        var presentPerfect = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.PresentPerfect) ?? null;
+                        areExistResult = presentPerfect != null;
+                        break;
+                    case "PresentPerfectContinuous":
+                        var presentPerfectContinuous = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.PresentPerfectContinuous) ?? null;
+                        areExistResult = presentPerfectContinuous != null;
+                        break;
+                    case "PastSimple":
+                        var pastSimple = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.PastSimple) ?? null;
+                        areExistResult = pastSimple != null;
+                        break;
+                    case "PastContinuous":
+                        var pastContinuous = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.PastContinuous) ?? null;
+                        areExistResult = pastContinuous != null;
+                        break;
+                    case "PastPerfect":
+                        var pastPerfect = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.PastPerfect) ?? null;
+                        areExistResult = pastPerfect != null;
+                        break;
+                    case "PastPerfectContinuous":
+                        var pastPerfectContinuous = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.PastPerfectContinuous) ?? null;
+                        areExistResult = pastPerfectContinuous != null;
+                        break;
+                    case "FutureSimple":
+                        var futureSimple = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.FutureSimple) ?? null;
+                        areExistResult = futureSimple != null;
+                        break;
+                    case "FutureContinuous":
+                        var futureContinuous = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.FutureContinuous) ?? null;
+                        areExistResult = futureContinuous != null;
+                        break;
+                    case "FuturePerfect":
+                        var futurePerfect = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.FuturePerfect) ?? null;
+                        areExistResult = futurePerfect != null;
+                        break;
+                    case "FuturePerfectContinuous":
+                        var futurePerfectContinuous = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.FuturePerfectContinuous) ?? null;
+                        areExistResult = futurePerfectContinuous != null;
+                        break;
+                    case "Mixt":
+                        var mixt = _dbContext.Sentences.FirstOrDefault(x => x.Tense == Tences.Mixt) ?? null;
+                        areExistResult = mixt != null;
+                        break;
+                }
+                if (!areExistResult) break;
+            }
+
+            return areExistResult;
         }
 
         /// <summary>
