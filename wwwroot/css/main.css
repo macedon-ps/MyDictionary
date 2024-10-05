@@ -2270,6 +2270,21 @@ section:last-child, article:last-child {
 	margin: 0.3em auto 0.3em;
 	align-content: center;
 }
+.leftPadCard{
+	padding-left: 1.5em;
+}
+.chooseButton {
+	display: inline-block;
+	padding: 10px 25px;
+	color: white;
+	/*background-color: #008dab;*/
+	background-color: #709437;
+	text-decoration: none;
+	min-width: 12%;
+	border-radius: 10px;
+	text-align: center;
+	margin-right: 0.5em;
+}
 .inCenter{
 	display:flex;
 	justify-content:center;

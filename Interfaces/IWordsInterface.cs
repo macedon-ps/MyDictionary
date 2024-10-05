@@ -18,6 +18,10 @@ namespace MyDictionary.Interfaces
         /// <returns></returns>
         List<Word> GetRandomWords(List<string> partSpeech);
 
+        /// <summary>
+        /// Метод рандомного создания одного слова
+        /// </summary>
+        /// <returns></returns>
         Word GetRandomWord();
 
         /// <summary>
@@ -77,8 +81,16 @@ namespace MyDictionary.Interfaces
         Sentence GetRandomSentence();
 
         /// <summary>
-        /// Метод рандомного выбора предложения одной части речи
+        /// Метод рандомного предложения для заданной коллекции времен англ. языка
         /// </summary>
+        /// <param name="englishTences">коллекция времен англ. языка</param>
+        /// <returns></returns>
+        Sentence GetRandomSentence(List<string> englishTences);
+
+        /// <summary>
+        /// Метод рандомного выбора предложения для заданного времени англ. языка
+        /// </summary>
+        /// <param name="tence">время англ. языка</param>
         /// <returns></returns>
         Sentence GetRandomSentenceByTence(int tence);
 
@@ -94,7 +106,7 @@ namespace MyDictionary.Interfaces
         /// <param name="id">идентификатор предложения</param>
         /// <returns></returns>
         Sentence GetSentenceById(int id);
-
+        
         /* не реализовано
         
         /// <summary>

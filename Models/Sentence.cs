@@ -31,7 +31,7 @@ namespace MyDictionary.Models
         /// </summary>
         [Required(ErrorMessage = "Введите вид времени английского языка")]
         [Display(Name = "Вид времени английского языка")]
-        public Tenses Tense {  get; set; } 
+        public Tences Tense {  get; set; } 
 
         public Sentence() { }
     }

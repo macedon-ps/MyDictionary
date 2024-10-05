@@ -13,15 +13,13 @@ namespace MyDictionary.Repository
         {
             _dbContext = dbContext;
         }
-        
+
         // Методы для слов
 
         /// <summary>
         /// Метод рандомного создания коллекции слов одной части речи, состоящей из заданного количества слов
         /// </summary>
-        /// <param name="number">заданное количество слов в коллекции</param>
         /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
         public List<Word> GetRandomWords()
         {
             //1. Рандомный выбор части речи
@@ -86,6 +84,10 @@ namespace MyDictionary.Repository
             return randomWordsList;
         }
 
+        /// <summary>
+        /// Метод рандомного создания одного слова
+        /// </summary>
+        /// <returns></returns>
         public Word GetRandomWord()
         {
             var rand = new Random();
@@ -100,16 +102,28 @@ namespace MyDictionary.Repository
             return word;
         }
 
+        /// <summary>
+        /// Метод получения всех слов
+        /// </summary>
+        /// <returns></returns>
         public List<Word> GetAllWords()
         {
             return _dbContext.Words.ToList();
         }
 
+        /// <summary>
+        /// Метод получения количества всех слов в БД
+        /// </summary>
+        /// <returns></returns>
         public int GetNumberOfAllWords()
         {
             return _dbContext.Words.Count();
         }
 
+        /// <summary>
+        /// Метод создания массива идентификаторов всех слов
+        /// </summary>
+        /// <returns></returns>
         public int[] GetArrayOfWordsIndex()
         {
             var nuberOfWords = _dbContext.Words.Count();
@@ -159,6 +173,11 @@ namespace MyDictionary.Repository
         */
 
         // Методы для предложений
+
+        /// <summary>
+        /// Метод рандомного выбора предложения
+        /// </summary>
+        /// <returns></returns>
         public Sentence GetRandomSentence()
         {
             //1. Рандомный выбор времени англ. языка
@@ -167,9 +186,24 @@ namespace MyDictionary.Repository
             var sentence = GetRandomSentenceByTence(numberOfTence);
 
             return sentence;
-            
         }
 
+        /// <summary>
+        /// Метод рандомного предложения для заданной коллекции времен англ. языка
+        /// </summary>
+        /// <param name="englishTences">коллекция времен англ. языка</param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Sentence GetRandomSentence(List<string> englishTences)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Метод рандомного выбора предложения для заданного времени англ. языка
+        /// </summary>
+        /// <param name="numberOfTence">время англ. языка</param>
+        /// <returns></returns>
         public Sentence GetRandomSentenceByTence(int numberOfTence)
         {
             var rand = new Random();

@@ -106,7 +106,7 @@ namespace MyDictionary.Utils
         public static int RandomChooseOfEnglishTence()
         {
             // Количество времен в английском языке в перечислении Tenses
-            var numberAllTences = Enum.GetNames(typeof(Tenses)).Length;
+            var numberAllTences = Enum.GetNames(typeof(Tences)).Length;
 
             // Рандомное определение времени английского языка
 
@@ -117,7 +117,7 @@ namespace MyDictionary.Utils
             // 4 - PastSimple, 5 - PastContinuous, 6 - PastPerfect, 7 - PastPerfectContinuous,
             // 8 - FutureSimple, 9 - FutureContinuous, 10 - FuturePerfect, 11 - FuturePerfectContinuous,
             // 12 -Mixt
-            var currentRandomTence = 0;
+            var currentRandomTence = 8;
 
             // TODO: м.б. сделать возможным выбор пользователем времени английского языка самостоятельно
 

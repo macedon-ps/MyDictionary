@@ -5,7 +5,6 @@ using MyDictionary.Models;
 using MyDictionary.Utils;
 using MyDictionary.ViewModels;
 using System.Text.Json;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MyDictionary.Controllers
 {
@@ -33,118 +32,41 @@ namespace MyDictionary.Controllers
         }
 
         /// <summary>
-        /// Метод вывода страницы ввода, редактирования, удаления слов / предложений / грамматики
+        /// Метод рандомного выбора и проверки слов
         /// </summary>
         /// <returns></returns>
-        public IActionResult Edit()
-        {
-            return View();
-        }
-        
-        /// <summary>
-        /// Метод вывода общих задач
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult CommonTask()
-        {
-            return View();
-        }
-        
-        /// <summary>
-        /// Метод вывода задач страницы Home
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult HomeTask()
-        {
-            return View();
-        }
-
-        /// <summary>
-        /// Метод вывода задач страницы Edit
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult EditTask()
-        {
-            return View();
-        }
-        
-        public IActionResult GetPartOfSpeech()
-        {
-            return PartialView("ChoosePartOfSpeechPartial");
-        }
-
-        [HttpPost]
-        public IActionResult GetPartOfSpeech(List<string> partSpeech)
+        public IActionResult CheckWords()
         {
             try
             {
-                // TODO: проверка, есть ли выбранные пользователем части речи в словах в БД
-                var utils = new WordsUtils(_dbContext);
+                // получаем части речи либо по выбору пользователя, либо по дефолту
+                var defoultPartOfSpeech = "[\"Noun\",\"Verb\",\"Adjective\",\"Adverb\"]";
                 
-                var isMatchPartsOfSpeech = utils.TestingOfUsersChoose(partSpeech);
+                var partSpeechJson = HttpContext.Session.GetString("listPartOfSpeech") ?? defoultPartOfSpeech;
+                var partSpeech = JsonSerializer.Deserialize<List<string>>(partSpeechJson);
 
-                // TODO: проверка, есть ли хотя бы 5 слов по каждой из выбранных частей речи в БД
-                var isMatchWordsNumberOfPartOfSpeech = WordsUtils.TestingOfWordsNumber(partSpeech);
+                var randomWords = new List<Word>();
 
-                if(isMatchPartsOfSpeech && isMatchWordsNumberOfPartOfSpeech)
+                if (partSpeech == null)
                 {
-                    var partSpeechJson = JsonSerializer.Serialize(partSpeech);
-
-                    // устанавливаем переменную сесии partSpeechJson
-                    HttpContext.Session.SetString("listPartOfSpeech", partSpeechJson);
+                    randomWords = _words.GetRandomWords();
                 }
                 else
                 {
-                    var errorViewModel = new ErrorViewModel("К сожалению, не все выбранные части речи представлены примерами слов в БД");
-                    return View("Error", errorViewModel);
+                    randomWords = _words.GetRandomWords(partSpeech);
                 }
-            
-                return RedirectToAction("CheckWords", "Home");
+
+                var indexOfCheckedWord = WordsUtils.GetIndexCheckedWord(randomWords);
+
+                var viewModel = new CheckWordsViewModel(randomWords, indexOfCheckedWord);
+
+                return View(viewModel);
             }
-            catch (Exception error) 
+            catch (Exception error)
             {
                 var errorViewModel = new ErrorViewModel(error.Message);
                 return View("Error", errorViewModel);
             }
-            
-        }
-
-        /// <summary>
-        /// Метод рандомного выбора и проверки слов
-        /// </summary>
-        /// <returns></returns>
-        /*
-        public IActionResult CheckWords()
-        {
-            var randomWords = _words.GetRandomWords();
-            var indexOfCheckedWord = _words.GetIndexCheckedWord(randomWords);
-
-            var viewModel = _words.GetCheckWordsViewModel(randomWords, indexOfCheckedWord);
-  
-            return View(viewModel);
-        }*/
-
-        public IActionResult CheckWords()
-        {
-            var partSpeechJson = HttpContext.Session.GetString("listPartOfSpeech");
-            var partSpeech = JsonSerializer.Deserialize<List<string>>(partSpeechJson);
-
-            var randomWords = new List<Word>();
-            
-            if(partSpeech == null)
-            {
-                randomWords = _words.GetRandomWords();
-            }
-            else
-            {
-                randomWords = _words.GetRandomWords(partSpeech);
-            }
-            
-            var indexOfCheckedWord = WordsUtils.GetIndexCheckedWord(randomWords);
-
-            var viewModel = new CheckWordsViewModel(randomWords, indexOfCheckedWord);
-
-            return View(viewModel);
         }
 
         /// <summary>
@@ -164,7 +86,10 @@ namespace MyDictionary.Controllers
             {
                 // при нажатии на кнопку с вариантом ответа б. сгенерированы и отрендерены новые данные для списка слов и индекса выбранного слова (применятся в конце)
 
-                var newRandomWords = _words.GetRandomWords();
+                var partSpeechJson = HttpContext.Session.GetString("listPartOfSpeech");
+                var partSpeech = JsonSerializer.Deserialize<List<string>>(partSpeechJson);
+
+                var newRandomWords = _words.GetRandomWords(partSpeech);
                 var newIndexOfCheckedWord = WordsUtils.GetIndexCheckedWord(newRandomWords);
 
                 var viewModel = new CheckWordsViewModel(newRandomWords, newIndexOfCheckedWord, idWord, allQuestion, goodAnswers, badAnswers, grades, idSelectedAnswer);
@@ -178,20 +103,126 @@ namespace MyDictionary.Controllers
             }
 
         }
-
-        public IActionResult GetAllWords()
+        
+        /// <summary>
+        /// Метод вывода модального окна с выбором частей речи
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult GetPartOfSpeech()
         {
-            var words = _words.GetAllWords();
-            return View(words);
+            return PartialView("ChoosePartOfSpeechPartial");
         }
 
+        /// <summary>
+        /// Метод вывода модального окна с выбором частей речи (POST версия)
+        /// </summary>
+        /// <param name="partSpeech"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult GetPartOfSpeech(List<string> partSpeech)
+        {
+            try
+            {
+                // проверка, есть ли выбранные пользователем части речи в словах в БД
+                var utils = new WordsUtils(_dbContext);
+
+                var isMatchPartsOfSpeech = utils.TestingOfUsersChoose(partSpeech);
+
+                // TODO: проверка, есть ли хотя бы 5 слов по каждой из выбранных частей речи в БД
+                var isMatchWordsNumberOfPartOfSpeech = WordsUtils.TestingOfWordsNumber(partSpeech);
+
+                if (isMatchPartsOfSpeech && isMatchWordsNumberOfPartOfSpeech)
+                {
+                    var partSpeechJson = JsonSerializer.Serialize(partSpeech);
+
+                    // устанавливаем переменную сесии partSpeechJson
+                    HttpContext.Session.SetString("listPartOfSpeech", partSpeechJson);
+                }
+                else
+                {
+                    var errorViewModel = new ErrorViewModel("К сожалению, не все выбранные части речи представлены примерами слов в БД");
+                    return View("Error", errorViewModel);
+                }
+
+                return RedirectToAction("CheckWords", "Home");
+            }
+            catch (Exception error)
+            {
+                var errorViewModel = new ErrorViewModel(error.Message);
+                return View("Error", errorViewModel);
+            }
+        }
+
+        /// <summary>
+        /// Метод рандомного выбора и проверки предложений
+        /// </summary>
+        /// <returns></returns>
         public IActionResult CheckSentences()
         {
-            var randomSentence = _words.GetRandomSentence();
-            
-            var viewModel = new CheckSentencesViewModel(randomSentence);
+            try
+            {
+                // получаем времена англ.языка либо по выбору пользователя, либо по дефолту
+                var defoultEnglishTences = "[\"Noun\",\"Verb\",\"Adjective\",\"Adverb\"]";
 
-            return View(viewModel);
+                var englishTencesJson = HttpContext.Session.GetString("listOfEnglishTences") ?? defoultEnglishTences;
+                var englishTences = JsonSerializer.Deserialize<List<string>>(englishTencesJson);
+
+                var randomSentence = new Sentence();
+
+                if (englishTences == null)
+                {
+                    randomSentence = _words.GetRandomSentence();
+                }
+                else
+                {
+                    randomSentence = _words.GetRandomSentence(englishTences);
+                }
+
+                var viewModel = new CheckSentencesViewModel(randomSentence);
+
+                return View(viewModel);
+            }
+            catch (Exception error)
+            {
+                var errorViewModel = new ErrorViewModel(error.Message);
+                return View("Error", errorViewModel);
+            }
+        }
+
+        /// <summary>
+        /// Метод вывода страницы ввода, редактирования, удаления слов / предложений / грамматики
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult Edit()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Метод вывода общих задач
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult CommonTask()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Метод вывода задач страницы Home
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult HomeTask()
+        {
+            return View();
+        }
+
+        /// <summary>
+        /// Метод вывода задач страницы Edit
+        /// </summary>
+        /// <returns></returns>
+        public IActionResult EditTask()
+        {
+            return View();
         }
     }
 }
