@@ -14,28 +14,6 @@ namespace MyDictionary.Utils
         }
                 
         /// <summary>
-        /// Метод рандомного определения части речи
-        /// </summary>
-        /// <returns></returns>
-        public static int RandomChooseOfPartOfSpeach()
-        {
-            // Количество частей речи в перечислении PartsOfSpeech
-            var numberAllPartOfSpeach = Enum.GetNames(typeof(PartsOfSpeech)).Length;
-
-            // Рандомное определение части речи
-            var rand = new Random();
-            //var currentRandomPartOfSpeech = rand.Next(numberAllPartOfSpeach);
-            // м. вручную выставить: 0 - существительные, 1 - глаголы, 2 - прилагательные, 4 - наречмя и т.д.
-            var currentRandomPartOfSpeech = 1;
-
-            // TODO: м.б. сделать возможным выбор пользователем части  речи самостоятельно
-
-            // TODO: сделать проверку существуют ли в словаре слова данной части речи (для полной версии PartsOfSpeech)
-
-            return currentRandomPartOfSpeech;
-        }
-
-        /// <summary>
         /// Метод рандомного определения части речи из тех, что выбраны пользователем
         /// </summary>
         /// <param name="partSpeech">список частей речи, выбранных пользователем</param>
@@ -126,9 +104,8 @@ namespace MyDictionary.Utils
             return currentRandomTence;
         }
 
-        public bool TestingOfUsersChoose(List<string> partSpeech)
+        public bool TestingOfUsersPSChoose(List<string> partSpeech)
         {
-            // TODO: реализовать метод TestingOfUsersChoose()
             var areExistResult = true;
 
             foreach (var speech in partSpeech) 

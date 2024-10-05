@@ -27,7 +27,6 @@ namespace MyDictionary.Controllers
         /// <returns></returns>
         public IActionResult Index()
         {
-            
             return View();
         }
 
@@ -45,17 +44,8 @@ namespace MyDictionary.Controllers
                 var partSpeechJson = HttpContext.Session.GetString("listPartOfSpeech") ?? defoultPartOfSpeech;
                 var partSpeech = JsonSerializer.Deserialize<List<string>>(partSpeechJson);
 
-                var randomWords = new List<Word>();
-
-                if (partSpeech == null)
-                {
-                    randomWords = _words.GetRandomWords();
-                }
-                else
-                {
-                    randomWords = _words.GetRandomWords(partSpeech);
-                }
-
+                var randomWords = _words.GetRandomWords(partSpeech);
+                
                 var indexOfCheckedWord = WordsUtils.GetIndexCheckedWord(randomWords);
 
                 var viewModel = new CheckWordsViewModel(randomWords, indexOfCheckedWord);
@@ -85,8 +75,10 @@ namespace MyDictionary.Controllers
             try
             {
                 // при нажатии на кнопку с вариантом ответа б. сгенерированы и отрендерены новые данные для списка слов и индекса выбранного слова (применятся в конце)
+                // получаем части речи либо по выбору пользователя, либо по дефолту
+                var defoultPartOfSpeech = "[\"Noun\",\"Verb\",\"Adjective\",\"Adverb\"]";
 
-                var partSpeechJson = HttpContext.Session.GetString("listPartOfSpeech");
+                var partSpeechJson = HttpContext.Session.GetString("listPartOfSpeech") ?? defoultPartOfSpeech;
                 var partSpeech = JsonSerializer.Deserialize<List<string>>(partSpeechJson);
 
                 var newRandomWords = _words.GetRandomWords(partSpeech);
@@ -126,7 +118,7 @@ namespace MyDictionary.Controllers
                 // проверка, есть ли выбранные пользователем части речи в словах в БД
                 var utils = new WordsUtils(_dbContext);
 
-                var isMatchPartsOfSpeech = utils.TestingOfUsersChoose(partSpeech);
+                var isMatchPartsOfSpeech = utils.TestingOfUsersPSChoose(partSpeech);
 
                 // TODO: проверка, есть ли хотя бы 5 слов по каждой из выбранных частей речи в БД
                 var isMatchWordsNumberOfPartOfSpeech = WordsUtils.TestingOfWordsNumber(partSpeech);

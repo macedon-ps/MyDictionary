@@ -17,39 +17,6 @@ namespace MyDictionary.Repository
         // Методы для слов
 
         /// <summary>
-        /// Метод рандомного создания коллекции слов одной части речи, состоящей из заданного количества слов
-        /// </summary>
-        /// <returns></returns>
-        public List<Word> GetRandomWords()
-        {
-            //1. Рандомный выбор части речи
-            var numberOfPartOfSpeech = WordsUtils.RandomChooseOfPartOfSpeach();
-
-            // 2. Определение количества вариантов ответа
-            var number = new CheckWordsViewModel().GetNumberOfWords();
-
-            // 3. Создание коллекции слов List<Word> в количестве number слов
-            var randomWordsList = new List<Word>();
-            
-            for (int i = 0; i < number; i++)
-            {
-                var isAddedNewWord = false;
-
-                while (!isAddedNewWord)
-                {
-                    var randomWord = GetRandomWord();
-                        
-                    if ((int)randomWord.PartOfSpeech == numberOfPartOfSpeech && !randomWordsList.Contains(randomWord))
-                    {
-                        randomWordsList.Add(randomWord);
-                        isAddedNewWord = true;
-                    }
-                }
-            }
-            return randomWordsList;
-        }
-
-        /// <summary>
         /// Метод рандомного создания коллекции слов одной или нескольких частей речи, состоящей из заданного количества слов
         /// </summary>
         /// <param name="partSpeech">список частей речи, выбранных пользователем</param>
@@ -72,9 +39,9 @@ namespace MyDictionary.Repository
 
                 while (!isAddedNewWord)
                 {
-                    var randomWord = GetRandomWord();
+                    var randomWord = GetOneRandomWord(numberOfPartOfSpeech);
 
-                    if ((int)randomWord.PartOfSpeech == numberOfPartOfSpeech && !randomWordsList.Contains(randomWord))
+                    if (!randomWordsList.Contains(randomWord))
                     {
                         randomWordsList.Add(randomWord);
                         isAddedNewWord = true;
@@ -87,15 +54,16 @@ namespace MyDictionary.Repository
         /// <summary>
         /// Метод рандомного создания одного слова
         /// </summary>
+        /// <param name="numberOfPartOfSpeech">заданная часть речи</param>
         /// <returns></returns>
-        public Word GetRandomWord()
+        public Word GetOneRandomWord(int numberOfPS)
         {
             var rand = new Random();
-            var numberOfAllWodrs = GetNumberOfAllWords();
-            var randomWordNumber = rand.Next(numberOfAllWodrs);
+            var numberWodrsOfPS = GetNumberOfWordsOfPS(numberOfPS);
+            var randomWordNumber = rand.Next(numberWodrsOfPS);
 
-            var arrayAllWordsIndex = GetArrayOfWordsIndex();
-            var randomWordIndex = arrayAllWordsIndex[randomWordNumber];
+            var arrayOfPSWordsIndexes = GetArrayOfPSWordsIndexes(numberOfPS);
+            var randomWordIndex = arrayOfPSWordsIndexes[randomWordNumber];
 
             var word = _dbContext.Words.FirstOrDefault(x => x.Id == randomWordIndex);
 
@@ -103,74 +71,45 @@ namespace MyDictionary.Repository
         }
 
         /// <summary>
-        /// Метод получения всех слов
+        /// Метод создания массива идентификаторов слов заданной части речи
         /// </summary>
+        /// <param name="numberOfPS">номер заданной части речи</param>
         /// <returns></returns>
-        public List<Word> GetAllWords()
+        public int[] GetArrayOfPSWordsIndexes(int numberOfPS)
         {
-            return _dbContext.Words.ToList();
-        }
-
-        /// <summary>
-        /// Метод получения количества всех слов в БД
-        /// </summary>
-        /// <returns></returns>
-        public int GetNumberOfAllWords()
-        {
-            return _dbContext.Words.Count();
-        }
-
-        /// <summary>
-        /// Метод создания массива идентификаторов всех слов
-        /// </summary>
-        /// <returns></returns>
-        public int[] GetArrayOfWordsIndex()
-        {
-            var nuberOfWords = _dbContext.Words.Count();
-            var arrayOfWordsIndex = new int[nuberOfWords];
-            var allWords = _dbContext.Words.ToList();
+            var listWordsOfPS = GetListWordsOfPS(numberOfPS);
+            var arraySize = listWordsOfPS.Count;
+            
+            var arrayOfPSWordsIndexes = new int[arraySize];
             var i = 0;
 
-            foreach (var word in allWords)
+            foreach ( var word in listWordsOfPS)
             {
-                arrayOfWordsIndex[i] = word.Id;
+                arrayOfPSWordsIndexes[i] = word.Id;
                 i++;
             }
-
-            return arrayOfWordsIndex;
+            return arrayOfPSWordsIndexes;
         }
 
-        /* не реализовано
-        public List<Word> GetWordsByPartOfSpeech(int partOfSpeech)
+        /// <summary>
+        /// Метод получения количества всех слов заданной части речи в БД
+        /// </summary>
+        /// <param name="numberOfPartOfSpeech">номер заданной части речи</param>
+        /// <returns></returns>
+        public int GetNumberOfWordsOfPS(int numberOfPartOfSpeech)
         {
-            throw new NotImplementedException();
+            return _dbContext.Words.Where(x => (int)x.PartOfSpeech == numberOfPartOfSpeech).Count();
         }
 
-        public Word GetWordById(int id)
+        /// <summary>
+        /// Метод получения коллекции слов заданной части речи в БД
+        /// </summary>
+        /// <param name="numberOfPartOfSpeech">номер заданной части речи</param>
+        /// <returns></returns>
+        public List<Word> GetListWordsOfPS(int numberOfPartOfSpeech)
         {
-            throw new NotImplementedException();
+            return _dbContext.Words.Where(x => (int)x.PartOfSpeech == numberOfPartOfSpeech).ToList();
         }
-
-        public Word GetWordByRusValue(string rusValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Word GetWordByEngValue(string engValue)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveWoord(Word word, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteWoord(Word word, int id)
-        {
-            throw new NotImplementedException();
-        }
-        */
 
         // Методы для предложений
 
@@ -247,27 +186,5 @@ namespace MyDictionary.Repository
 
             return arrayOfSentencesIndex;
         }
-
-        /* не реализовано 
-        public List<Word> GetSentencesByTence(int tence)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Word GetSentenceById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SaveSentence(Word word, int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void DeleteSentence(Word word, int id)
-        {
-            throw new NotImplementedException();
-        } 
-         */
     }
 }
