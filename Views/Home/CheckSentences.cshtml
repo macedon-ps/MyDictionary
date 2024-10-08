@@ -1,6 +1,5 @@
 ﻿@model CheckSentencesViewModel;
 
-
 <div class="homePage">
 
     @await Html.PartialAsync("HomeButtonPartial")
@@ -29,35 +28,50 @@
             <div class="col-8 col-12-medium marginLeft3">
 
                 <form method="post">
-
                     <div class="card leftPadCard">
                         @Model.RandomSentence.EngValue
                     </div>
                     <div class="inCenter">
-                        <input type="submit" class="nextWord" asp-controller="" asp-action="" value="Продолжить" />
+                        <input type="submit" class="nextWord" asp-controller="Home"
+                        asp-action="CheckSentences"
+                        asp-route-allQuestion="@Model.AllQuestionsNumber"
+                        asp-route-goodAnswers="@Model.GoodAnswersNumber"
+                        asp-route-badAnswers="@Model.BadAnswersNumber"
+                        asp-route-grades="@Model.Grades"
+                        asp-route-mark="good"
+                        value="correct answer" />
+                        <span class="betweenButtons"></span>
+                        <input type="submit" class="nextWord" asp-controller="Home"
+                        asp-action="CheckSentences"
+                        asp-route-allQuestion="@Model.AllQuestionsNumber"
+                        asp-route-goodAnswers="@Model.GoodAnswersNumber"
+                        asp-route-badAnswers="@Model.BadAnswersNumber"
+                        asp-route-grades="@Model.Grades"
+                        asp-route-mark="bad"
+                        value="uncorrect answer" />
                     </div>
                     @{
-                        /*var goodMarksLevel = 0.0m;
+                        var goodMarksLevel = 0.0m;
                         var badMarksLevel = 0.0m;
 
                         if (Model.AllQuestionsNumber != 0)
                         {
                             goodMarksLevel = Math.Round((Model.GoodAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
                             badMarksLevel = Math.Round((Model.BadAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
-                        }*/
+                        }
                     }
                     <div class="info-box-right">
                         <div class="grades-block">
                             <div>Оценка:</div>
-                            <div class="grades">тра та та</div>
+                            <div class="grades">@Model.Grades</div>
                         </div>
                         <div class="flexRow space-between statistic-block">
-                            <div><p>Всего вопросов: о го го</p></div>
+                            <div><p>Всего вопросов: @Model.AllQuestionsNumber</p></div>
                             <div>
-                                <p>Правильно: сколько то ( %)</p>
+                                <p>Правильно: @Model.GoodAnswersNumber (@goodMarksLevel %)</p>
                             </div>
                             <div>
-                                <p>Не правильно: сколько то ( %)</p>
+                                <p>Не правильно: @Model.BadAnswersNumber (@badMarksLevel %)</p>
                             </div>
                         </div>
                     </div>

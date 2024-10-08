@@ -92,7 +92,6 @@ namespace MyDictionary.Controllers
                 var errorViewModel = new ErrorViewModel(error.Message);
                 return View("Error", errorViewModel);
             }
-
         }
         
         /// <summary>
@@ -171,6 +170,30 @@ namespace MyDictionary.Controllers
             }
         }
 
+        [HttpPost]
+        public IActionResult CheckSentences(int allQuestion, int goodAnswers, int badAnswers, string grades, string mark)
+        {
+            try
+            {
+                // получаем времена англ.языка либо по выбору пользователя, либо по дефолту
+                var defoultEnglishTences = "[\"PresentSimple\",\"PastSimple\",\"FutureSimple\"]";
+
+                var tencesJson = HttpContext.Session.GetString("listTences") ?? defoultEnglishTences;
+                var tences = JsonSerializer.Deserialize<List<string>>(tencesJson);
+
+                var randomSentence = _words.GetRandomSentence(tences);
+
+                var viewModel = new CheckSentencesViewModel(randomSentence, allQuestion, goodAnswers, badAnswers, grades, mark);
+
+                return View(viewModel);
+            }
+            catch (Exception error)
+            {
+                var errorViewModel = new ErrorViewModel(error.Message);
+                return View("Error", errorViewModel);
+            }
+        }
+
         /// <summary>
         /// Метод вывода модального окна с выбором времен англ. языка
         /// </summary>
@@ -219,7 +242,6 @@ namespace MyDictionary.Controllers
                 return View("Error", errorViewModel);
             }
         }
-
 
         /// <summary>
         /// Метод вывода страницы ввода, редактирования, удаления слов / предложений / грамматики

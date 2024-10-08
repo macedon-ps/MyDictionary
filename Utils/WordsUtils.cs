@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.FileProviders;
-using MyDictionary.DBContext;
+﻿using MyDictionary.DBContext;
 using MyDictionary.Models;
 
 namespace MyDictionary.Utils

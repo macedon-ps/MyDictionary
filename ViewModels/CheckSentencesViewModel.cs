@@ -33,5 +33,26 @@ namespace MyDictionary.ViewModels
         {
             RandomSentence = sentence;
         }
+
+        public CheckSentencesViewModel(Sentence sentence, int allQuestion, int goodAnswers, int badAnswers, string grades, string mark) 
+        {
+            RandomSentence = sentence;
+            AllQuestionsNumber = allQuestion;
+            GoodAnswersNumber = goodAnswers;
+            BadAnswersNumber = badAnswers;
+            Grades = grades;
+
+            AllQuestionsNumber++;
+            if (mark == "good")
+            {
+                GoodAnswersNumber++;
+                Grades = "Good job!!!";
+            }
+            else if (mark == "bad")
+            {
+                BadAnswersNumber++;
+                Grades = "Bad, very bad!!!";
+            }
+        }
     }
 }
