@@ -7,26 +7,29 @@
         
         <h1 class="title">My dictionary</h1>
         <hr class="horizontal-line" /><br />
-        <p>Тут будет функционал использования своего пользовательского словаря.</p>
+        <h4 class="title">Тут будет функционал использования своего пользовательского словаря.</h4>
 
-        <div class="displayFlex row">
-            <form asp-controller="Home" asp-action="GetPartOfSpeech">
-                <button type="button" class="chooseButton"
-                    data-toggle="modal"
-                    data-target="#choosePartOfSpeech"
-                >Выбрать часть речи
-                </button>
-            </form>
+        <div class="displayFlex1">
+            <div class="leftDiv">
+                <form asp-controller="Home" asp-action="GetPartOfSpeech">
+                    <button type="button" class="chooseButton"
+                            data-toggle="modal"
+                            data-target="#choosePartOfSpeech">
+                        Выбрать часть речи
+                    </button>
+                </form>
+            </div>
+            <div class="rightDiv">
+                <form asp-controller="Home" asp-action="GetTence">
+                    <button type="button" class="chooseButton"
+                            data-toggle="modal"
+                            data-target="#chooseTence">
+                        Выбрать время англ. языка
+                    </button>
+                </form>
+            </div>
         </div>
-        <div class="displayFlex row">
-            <form asp-controller="Home" asp-action="GetTence">
-                <button type="button" class="chooseButton"
-                    data-toggle="modal"
-                    data-target="#chooseTence"
-                >Выбрать время англ. языка
-                </button>
-            </form>
-        </div>
+        
     </div>
 
  </div>
