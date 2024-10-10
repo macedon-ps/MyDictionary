@@ -1,0 +1,44 @@
+﻿@model Word
+
+<div class="editPage">
+
+    @await Html.PartialAsync("EditButtonPartial")
+
+    <div class="editHeader">
+
+        <h1 class="title">Create, edit, delete words</h1>
+        <hr class="horizontal-line" /><br />
+
+        <div class="displayFlex">
+            <div class="flexColumn">
+                <form method="post">
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <div asp-validation-summary="All"></div>
+                    <div class="card">
+                        <label asp-for="EngValue"></label>
+                        <input type="text" asp-for="EngValue" />
+                        <span asp-validation-for="EngValue"></span>
+                    </div>
+                    <div class="card">
+                        <label asp-for="Transcription"></label>
+                        <input type="text" asp-for="Transcription" />
+                        <span asp-validation-for="Transcription"></span>
+                    </div>
+                    <div class="card">
+                        <label asp-for="RusValue"></label>
+                        <input type="text" asp-for="RusValue" />
+                        <span asp-validation-for="RusValue"></span>                        
+                    </div>
+                    <div class="info-box-left inline">
+                        <label asp-for="PartOfSpeech"></label>
+                        <input type="text" asp-for="PartOfSpeech" />
+                        <span asp-validation-for="PartOfSpeech"></span>
+                    </div>
+                    <input type="submit" class="card" asp-controller="Edit" asp-action="SaveWord" value="Сохранить"/>
+                </form>
+            </div>
+         </div>
+    </div>
+</div>
+

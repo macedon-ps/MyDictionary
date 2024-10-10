@@ -244,15 +244,6 @@ namespace MyDictionary.Controllers
         }
 
         /// <summary>
-        /// Метод вывода страницы ввода, редактирования, удаления слов / предложений / грамматики
-        /// </summary>
-        /// <returns></returns>
-        public IActionResult Edit()
-        {
-            return View();
-        }
-
-        /// <summary>
         /// Метод вывода общих задач
         /// </summary>
         /// <returns></returns>
