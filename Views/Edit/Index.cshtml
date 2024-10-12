@@ -1,4 +1,4 @@
-﻿@model Word
+﻿@model EditItemsViewModel
 
 <div class="editPage">
 
@@ -6,39 +6,129 @@
 
     <div class="editHeader">
 
-        <h1 class="title">Create, edit, delete words</h1>
-        <hr class="horizontal-line" /><br />
+        @if (Model.TypeOfItem == "Word")
+        {
+            <h2 class="title">Редактирование слов</h2>
+            <hr class="horizontal-line" />
 
-        <div class="displayFlex">
-            <div class="flexColumn">
-                <form method="post">
-                    <input type="hidden" asp-for="Id" />
-                    
-                    <div asp-validation-summary="All"></div>
-                    <div class="card">
-                        <label asp-for="EngValue"></label>
-                        <input type="text" asp-for="EngValue" />
-                        <span asp-validation-for="EngValue"></span>
-                    </div>
-                    <div class="card">
-                        <label asp-for="Transcription"></label>
-                        <input type="text" asp-for="Transcription" />
-                        <span asp-validation-for="Transcription"></span>
-                    </div>
-                    <div class="card">
-                        <label asp-for="RusValue"></label>
-                        <input type="text" asp-for="RusValue" />
-                        <span asp-validation-for="RusValue"></span>                        
-                    </div>
-                    <div class="info-box-left inline">
-                        <label asp-for="PartOfSpeech"></label>
-                        <input type="text" asp-for="PartOfSpeech" />
-                        <span asp-validation-for="PartOfSpeech"></span>
-                    </div>
-                    <input type="submit" class="card" asp-controller="Edit" asp-action="SaveWord" value="Сохранить"/>
+            <div class="createWordDiv">
+                <h2>1. Создать слово в словаре:</h2>
+
+                <form asp-controller="Word" asp-action="CreateWord" method="get">
+                    <input type="submit" class="submitButton" value="Создать" />
                 </form>
             </div>
-         </div>
+
+            <div class="editWordDiv">
+
+                <h2>2. Редактировать/удалить слово:</h2>
+                <h4 class="mt05">Наберите слово полностью или его часть</h4>
+
+                <form asp-controller="Word" asp-action="EditWord" method="get">
+                    <div class="displayFlexCol">
+                        <div asp-validation-summary="All"></div>
+                        <div class="input-group mb05">
+                            <label asp-for="RusValue" class="form-label"></label>
+                            <input type="text" asp-for="RusValue"
+                            class="input-group" placeholder="Введите слово" />
+                            <span asp-validation-for="RusValue"></span>
+                        </div>
+                        <div class="input-group mb05">
+                            <label asp-for="EngValue" class="form-label"></label>
+                            <input type="text" asp-for="EngValue"
+                            class="input-group" placeholder="Insert word" />
+                            <span asp-validation-for="EngValue"></span>
+                        </div>
+                        <div>
+                            <input type="submit" class="submitButton" value="Найти" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        }
+        @{
+            else if (Model.TypeOfItem == "Sentence")
+            {
+                <h2 class="title">Редактирование предложений</h2>
+                <hr class="horizontal-line" />
+
+                <div class="createSentenceDiv">
+                    <h2>1. Создать предложение в словаре:</h2>
+
+                    <form asp-controller="Sentence" asp-action="CreateSentence" method="get">
+                        <input type="submit" class="submitButton" value="Создать" />
+                    </form>
+                </div>
+
+                <div class="editSentenceDiv">
+
+                    <h2>2. Редактировать/удалить предложение:</h2>
+                    <h4 class="mt05">Наберите предложение полностью или его часть</h4>
+
+                    <form asp-controller="Sentence" asp-action="EditSentence" method="get">
+                        <div class="displayFlexCol">
+                            <div asp-validation-summary="All"></div>
+                            <div class="input-group mb05">
+                                <label asp-for="RusValue" class="form-label"></label>
+                                <input type="text" asp-for="RusValue"
+                                       class="input-group" placeholder="Введите предложение" />
+                                <span asp-validation-for="RusValue"></span>
+                            </div>
+                            <div class="input-group mb05">
+                                <label asp-for="EngValue" class="form-label"></label>
+                                <input type="text" asp-for="EngValue"
+                                       class="input-group" placeholder="Insert sentence" />
+                                <span asp-validation-for="EngValue"></span>
+                            </div>
+                            <div>
+                                <input type="submit" class="submitButton" value="Найти" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            }
+        }
+        @{
+            else if (Model.TypeOfItem == "Grammar")
+            {
+                <h2 class="title">Редактирование грамматики</h2>
+                <hr class="horizontal-line" />
+
+                <div class="createGrammarDiv">
+                    <h2>1. Создать правило грамматики в словаре:</h2>
+
+                    <form asp-controller="Grammar" asp-action="CreateGrammar" method="get">
+                        <input type="submit" class="submitButton" value="Создать" />
+                    </form>
+                </div>
+
+                <div class="editGrammarDiv">
+
+                    <h2>2. Редактировать/удалить правило грамматики:</h2>
+                    <h4 class="mt05">Наберите правило грамматики полностью или его часть</h4>
+
+                    <form asp-controller="Grammar" asp-action="EditGrammar" method="get">
+                        <div class="displayFlexCol">
+                            <div asp-validation-summary="All"></div>
+                            <div class="input-group mb05">
+                                <label asp-for="RusValue" class="form-label"></label>
+                                <input type="text" asp-for="RusValue"
+                                       class="input-group" placeholder="Введите правило грамматики" />
+                                <span asp-validation-for="RusValue"></span>
+                            </div>
+                            <div class="input-group mb05">
+                                <label asp-for="EngValue" class="form-label"></label>
+                                <input type="text" asp-for="EngValue"
+                                       class="input-group" placeholder="Insert grammar's rule" />
+                                <span asp-validation-for="EngValue"></span>
+                            </div>
+                            <div>
+                                <input type="submit" class="submitButton" value="Найти" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            }
+        }
     </div>
 </div>
-
