@@ -1,0 +1,30 @@
+﻿@model List<Word>
+<div class="editPage">
+
+    @await Html.PartialAsync("EditButtonPartial")
+
+    <div class="editHeader">
+
+        <h4 class="title"></h4>
+        <hr class="horizontal-line" />
+
+        @foreach (var item in Model)
+        {
+            <div>
+                <div>
+                    <h2>@item.Id</h2>
+                </div>
+                <div>
+                    <h4>@item.RusValue</h4>
+                    <h4>@item.EngValue</h4>
+                </div>
+                <div class="editDelete">
+                    <a asp-controller="Word" asp-action="EditWord" asp-route-wordId="@item.Id">редактировать</a>
+                    <a asp-controller="Word" asp-action="DeleteWord" asp-route-wordId="@item.Id">удалить</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

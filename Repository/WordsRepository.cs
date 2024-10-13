@@ -71,6 +71,16 @@ namespace MyDictionary.Repository
         }
 
         /// <summary>
+        /// Метод получения слова по его идентификатору
+        /// </summary>
+        /// <param name="wordId">идентификатор слова</param>
+        /// <returns></returns>
+        public Word GetWordById(int wordId)
+        {
+            return _dbContext.Words.FirstOrDefault(x => x.Id == wordId) ?? new Word();
+        }
+
+        /// <summary>
         /// Метод создания массива идентификаторов слов заданной части речи
         /// </summary>
         /// <param name="numberOfPS">номер заданной части речи</param>

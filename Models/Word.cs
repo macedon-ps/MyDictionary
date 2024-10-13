@@ -31,7 +31,7 @@ namespace MyDictionary.Models
         /// </summary>
         [Display(Name = "Транскрипция")]
         [StringLength(20, ErrorMessage = "Транскрипция не должна содержать более 20 символов")]
-        public string Transcription { get; set; } = "";
+        public string? Transcription { get; set; }
 
         /// <summary>
         /// Часть речи

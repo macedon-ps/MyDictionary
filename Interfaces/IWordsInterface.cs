@@ -19,6 +19,13 @@ namespace MyDictionary.Interfaces
         Word GetOneRandomWord(int numberOfPartOfSpeech);
 
         /// <summary>
+        /// Метод получения слова по его идентификатору
+        /// </summary>
+        /// <param name="wordId">идентификатор слова</param>
+        /// <returns></returns>
+        Word GetWordById(int wordId);
+
+        /// <summary>
         /// Метод рандомного предложения для заданной коллекции времен англ. языка
         /// </summary>
         /// <param name="englishTences">коллекция времен англ. языка</param>

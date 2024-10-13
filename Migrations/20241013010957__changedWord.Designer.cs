@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyDictionary.DBContext;
 
@@ -10,9 +11,11 @@ using MyDictionary.DBContext;
 namespace MyDictionary.Migrations
 {
     [DbContext(typeof(WordsDbContext))]
-    partial class WordsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241013010957__changedWord")]
+    partial class _changedWord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

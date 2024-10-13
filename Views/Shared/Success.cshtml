@@ -1,0 +1,30 @@
+﻿<div class="editPage">
+
+    @if (Model.ToString().Contains("Word"))
+    {
+        @await Html.PartialAsync("EditButtonPartial")
+
+        <div class="editHeader">
+
+            <h3 class="title">Сохранение объекта прошло  успешно!</h3>
+            <h4 class="title">Данные сохраненного объекта:</h4>
+            <hr class="horizontal-line" />
+            <br />
+            <div>
+
+                <div class="displayFlex">
+                    Id: @Model.Id
+                </div>
+                <div class="displayFlex">
+                    Англ: @Model.EngValue || Рус: @Model.RusValue
+                </div>
+                <div class="displayFlex">
+                    Транскрипция: @Model.Transcription
+                </div>
+                <div class="displayFlex">
+                    Часть речи: @Model.PartOfSpeech
+                </div>
+            </div>
+        </div>
+    }
+</div>

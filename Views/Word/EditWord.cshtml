@@ -11,7 +11,7 @@
 
         <div class="displayFlex">
             <div class="flexColumn">
-                <form asp-controller="Edit" asp-action="SaveWord" method="post">
+                <form asp-controller="Word" asp-action="SaveWord" method="post">
                     <input type="hidden" asp-for="Id" />
                     
                     <div asp-validation-summary="All"></div>
@@ -32,7 +32,9 @@
                     </div>
                     <div class="info-box-left inline">
                         <label asp-for="PartOfSpeech"></label>
-                        <input type="text" asp-for="PartOfSpeech" />
+                        <select asp-for="PartOfSpeech" 
+                            asp-items="Html.GetEnumSelectList<PartsOfSpeech>()">
+                        </select>
                         <span asp-validation-for="PartOfSpeech"></span>
                     </div>
                     <input type="submit" class="card" value="Сохранить"/>
