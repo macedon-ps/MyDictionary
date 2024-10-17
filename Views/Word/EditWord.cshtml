@@ -9,6 +9,9 @@
         <h1 class="title">Create, edit, delete words</h1>
         <hr class="horizontal-line" /><br />
 
+        @* для CKEditor 5 *@
+        <script src="~/js/ckeditor5/ckeditor5.js"></script>
+
         <div class="displayFlex">
             <div class="flexColumn">
                 <form asp-controller="Word" asp-action="SaveWord" method="post">
@@ -22,7 +25,20 @@
                     </div>
                     <div class="card">
                         <label asp-for="Transcription"></label>
-                        <input type="text" asp-for="Transcription" />
+                        <!--<input type="text" asp-for="Transcription" />
+                        <textarea asp-for="Transcription" 
+                            name="editor" id="editor" rows="5" cols="50">
+                            This is my textarea to be replaced with CKEditor 4.
+                        </textarea>-->
+                        <div class="main-container">
+                            <div class="editor-container editor-container_inline-editor" id="editor-container">
+                                <div class="editor-container__editor">
+                                    <div id="editor" asp-for="Transcription">
+                                        This is my textarea to be replaced with CKEditor 5.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <span asp-validation-for="Transcription"></span>
                     </div>
                     <div class="card">
@@ -43,4 +59,4 @@
          </div>
     </div>
 </div>
-
+@await Html.PartialAsync("ScriptCkeditorPartial")
