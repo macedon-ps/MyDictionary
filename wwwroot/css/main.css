@@ -2505,6 +2505,9 @@ section:last-child, article:last-child {
 .mb2 {
 	margin-bottom: 2em;
 }
+.ml1{
+	margin-left: 1em;
+}
 .dateAdded,
 .editDelete,
 .searchDelete{
