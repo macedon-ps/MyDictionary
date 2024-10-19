@@ -53,10 +53,13 @@ namespace MyDictionary.Controllers
         }
 
         [HttpPost]
-        public IActionResult SaveWord(Word word)
+        public IActionResult SaveWord(Word word, IFormCollection formValues)
         {
             try
             {
+                var transcription = formValues["insertText"].ToString();
+                if (transcription != null) word.Transcription = transcription;
+
                 if (word != null && word.Id == 0)
                 {
                     _dbContext.Words.Add(word);
@@ -67,7 +70,7 @@ namespace MyDictionary.Controllers
                 {
                     _dbContext.Entry(word).State = EntityState.Modified;
                     _dbContext.SaveChanges();
-                    return View("UnSuccess", word);  
+                    return View("Success", word);  
                 }
                 return View("EditWord", word);
             }

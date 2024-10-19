@@ -58,13 +58,6 @@ namespace MyDictionary.Controllers
             }
         }
 
-        public RedirectToActionResult ToEditor()
-        {
-            // быстрый переход по адресу
-            // https://localhost:44301/Word/EditWord?wordId=144
-            return RedirectToAction("EditWord", "Word", new { wordId = 144 });
-        }
-
         /// <summary>
         /// Метод рандомного выбора и проверки слов (POST версия)
         /// </summary>

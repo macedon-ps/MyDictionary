@@ -7,16 +7,17 @@
     <div class="editHeader">
 
         <h1 class="title">Create, edit, delete words</h1>
-        <hr class="horizontal-line" /><br />
+        <hr class="horizontal-line" />
 
         @* для CKEditor 5 *@
         <script src="~/js/ckeditor5/ckeditor5.js"></script>
 
-        <div class="displayFlex">
+        <div class="displayFlex2">
             <div class="flexColumn">
+
                 <form asp-controller="Word" asp-action="SaveWord" method="post">
                     <input type="hidden" asp-for="Id" />
-                    
+                                        
                     <div asp-validation-summary="All"></div>
                     <div class="card">
                         <label asp-for="EngValue"></label>
@@ -25,18 +26,14 @@
                     </div>
                     <div class="card">
                         <label asp-for="Transcription"></label>
-                        <!--<input type="text" asp-for="Transcription" />
-                        <textarea asp-for="Transcription" 
-                            name="editor" id="editor" rows="5" cols="50">
-                            This is my textarea to be replaced with CKEditor 4.
-                        </textarea>-->
-                        <div class="main-container">
+                        <div class="">      <!-- <div class="main-container"> -->
                             <div class="editor-container editor-container_inline-editor" id="editor-container">
                                 <div class="editor-container__editor">
-                                    <div id="editor" asp-for="Transcription">
-                                        This is my textarea to be replaced with CKEditor 5.
-                                    </div>
+                                    <div name="editor" id="editor"></div>
                                 </div>
+                                <textarea name="insertText" asp-for="Transcription" rows="1" cols="86">
+                                    Сюда вставим транскрипцию слова для сохранения модели
+                                </textarea>
                             </div>
                         </div>
                         <span asp-validation-for="Transcription"></span>
@@ -46,15 +43,17 @@
                         <input type="text" asp-for="RusValue" />
                         <span asp-validation-for="RusValue"></span>                        
                     </div>
-                    <div class="info-box-left inline">
+                    <div class="edit-box-left inline">
                         <label asp-for="PartOfSpeech"></label>
                         <select asp-for="PartOfSpeech" 
                             asp-items="Html.GetEnumSelectList<PartsOfSpeech>()">
                         </select>
                         <span asp-validation-for="PartOfSpeech"></span>
                     </div>
-                    <input type="submit" class="card" value="Сохранить"/>
-                </form>
+                    <div class="card">
+                        <input type="submit" class="submitButton" id="submit" value="Сохранить" />
+                    </div>
+                 </form>
             </div>
          </div>
     </div>

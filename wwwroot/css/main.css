@@ -297,6 +297,9 @@ section:last-child, article:last-child {
 	border-radius: 10px;
 	background-color: #89b543;
 }
+.edit-box-left {
+	margin: 0 auto 0 1em;
+}
 .info-box-left {
 	margin: 6em auto 0;
 }
@@ -2268,11 +2271,22 @@ section:last-child, article:last-child {
 .space-between{
 	justify-content: space-between;
 }
+.textAreaBlock {
+	background-color: #8bb842;
+	padding: 0.5em;
+	margin: 0.3em 0.3em;
+	align-content: center;
+}
 .card {
 	background-color: #8bb842;
 	padding: 0.5em;
 	margin: 0.3em auto 0.3em;
 	align-content: center;
+}
+.card2 {
+	background-color: #8bb842;
+	padding: 0.5em;
+	margin: 0 auto 0 0;
 }
 .leftPadCard{
 	padding-left: 1.5em;
@@ -2405,6 +2419,10 @@ section:last-child, article:last-child {
 	display: flex;
 	padding: 1em 2em;
 }
+..displayFlex2 {
+	display: flex;
+	padding: 0 2em 1em 2em;
+}
 .displayFlexCol {
 	display: flex;
 	flex-direction: column;
@@ -2493,6 +2511,12 @@ section:last-child, article:last-child {
 	height: 100%;
 	object-fit: cover;
 }
+.ml0{
+	margin-left: 0;
+}
+.mr0{
+	margin-right: 0;
+}
 .mt05{
 	margin-top: 0.5em;
 }
@@ -2507,6 +2531,9 @@ section:last-child, article:last-child {
 }
 .ml1{
 	margin-left: 1em;
+}
+.pb1{
+	padding-bottom: 1em
 }
 .dateAdded,
 .editDelete,

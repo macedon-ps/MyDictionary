@@ -5,18 +5,17 @@
 
     <div class="editHeader">
 
-        <h4 class="title"></h4>
+        <h2 class="title">Результаты поиска: </h2>
         <hr class="horizontal-line" />
 
         @foreach (var item in Model)
         {
-            <div>
+            <div class="card">
                 <div>
-                    <h2>@item.Id</h2>
+                    <h4>Id: @item.Id  Часть речи: @item.PartOfSpeech.ToString()</h4>
                 </div>
                 <div>
-                    <h4>@item.RusValue</h4>
-                    <h4>@item.EngValue</h4>
+                    <h3>@item.EngValue [ @item.Transcription ] @item.RusValue</h3>
                 </div>
                 <div class="editDelete">
                     <a asp-controller="Word" asp-action="EditWord" asp-route-wordId="@item.Id">редактировать</a>
