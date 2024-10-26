@@ -5,7 +5,7 @@ const editorConfig = {
 		items: ['undo', 'redo', '|', 'bold', 'italic', '|', 'specialcharacters', '|', 'link'],
 		shouldNotGroupWhenFull: false
 	},
-om	plugins: [AccessibilityHelp, AutoLink, Autosave, Bold, Essentials, Italic, Link, Paragraph, SelectAll, Undo, 
+	plugins: [AccessibilityHelp, AutoLink, Autosave, Bold, Essentials, Italic, Link, Paragraph, SelectAll, Undo, 
 		SpecialCharacters, SpecialCharactersTranscription],					// SpecialCharactersEmoji, 
 	link: {
 		addTargetToExternalLinks: true,
