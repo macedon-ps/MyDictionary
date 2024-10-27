@@ -352,7 +352,7 @@ section:last-child, article:last-child {
 	display: flex;
 	flex-wrap: wrap;
 }
-.image-photoGallery{
+.image-photoGallery {
 	padding: 0.5em;
 	width: 100%;
 	object-fit: cover;
@@ -2293,7 +2293,7 @@ section:last-child, article:last-child {
 }
 .chooseButton {
 	display: inline-block;
-	padding: 10px 25px;
+	padding: 10px 15px;
 	color: white;
 	/*background-color: #008dab;*/
 	background-color: #709437;
@@ -2301,7 +2301,7 @@ section:last-child, article:last-child {
 	min-width: 12%;
 	border-radius: 10px;
 	text-align: center;
-	margin-right: 0.5em;
+	margin-left: 0.5em;
 }
 .inCenter{
 	display:flex;
@@ -2329,7 +2329,7 @@ section:last-child, article:last-child {
 
 .homeButton, .editButton, .errorButton {
 	display: flex;
-	justify-content: space-between;
+	/*justify-content: space-between;*/
 	/*background-color: #7dced8;*/
 	background-color: #99cc47;
 	margin-top: 1em;
@@ -2337,17 +2337,39 @@ section:last-child, article:last-child {
 	border-bottom: 2px solid white;
 }
 
-.homeButton a, .editButton a, errorButton a {
-	display: inline-block;
+.homeButton a, .editButton a, errorButton a{
 	padding: 10px 25px;
 	color: white;
 	/*background-color: #008dab;*/
 	background-color: #709437;
 	text-decoration: none;
-	min-width: 12%;
 	border-radius: 10px;
+	margin: 0 auto;
+}
+.images-home {
+	padding: 0 0.5em;
+	width: 100%;
+	object-fit: cover;
+}
+.homeImagesLabels {
+	padding: 10px 15px;
+	margin: 0 0.5em;
+	color: white;
+	background-color: #709437;
+	/*border-radius: 10px;*/
 	text-align: center;
-	margin-right: 0.5em;
+}
+.homeButtonLink {
+	display: flex;
+	min-width: 32%;
+}
+.homeButtonLinkItem {
+	width: 100%;
+	margin: 0 auto;
+	justify-content: center;
+}
+.link-block{
+	display:inline-block;
 }
 .submitButton {
 	display: inline-block;
@@ -2437,8 +2459,10 @@ section:last-child, article:last-child {
 	display: flex;
 	padding: 1em;
 }
+.leftDiv,
+.middleDiv,
 .rightDiv{
-	margin-left: 7em;
+	width: 33%;
 }
 .wrap {
 	flex-wrap: wrap;
@@ -2511,8 +2535,8 @@ section:last-child, article:last-child {
 	height: 100%;
 	object-fit: cover;
 }
-.ml0{
-	margin-left: 0;
+.ml05{
+	margin-left: 0.5em;
 }
 .mr0{
 	margin-right: 0;

@@ -6,26 +6,43 @@
     <div class="homeHeader">
         
         <h1 class="title">My dictionary</h1>
-        <hr class="horizontal-line" /><br />
-        <h4 class="title">Тут будет функционал использования своего пользовательского словаря.</h4>
-
+        <hr class="horizontal-line" />
+        
         <div class="displayFlex1">
             <div class="leftDiv">
                 <form asp-controller="Home" asp-action="GetPartOfSpeech">
-                    <button type="button" class="chooseButton"
-                            data-toggle="modal"
-                            data-target="#choosePartOfSpeech">
-                        Выбрать часть речи
-                    </button>
+                    <img class="images-home" src="~/images/HomePage/translate.jpg"
+                        type="button" class="chooseButton"
+                        data-toggle="modal"
+                        data-target="#choosePartOfSpeech"
+                        alt="Выбрать часть речи" />
+                    <h4 class="ml05 homeImagesLabels">Выбрать часть речи 
+                        <br />и проверить слова
+                    </h4>
+                </form>
+            </div>
+            <div class="middleDiv">
+                <form asp-controller="Home" asp-action="GetTence">
+                    <img class="images-home" src="~/images/HomePage/translate_sentences.jpg" 
+                        type="button" class="chooseButton"
+                        data-toggle="modal"
+                        data-target="#chooseTence"
+                        alt="Выбрать время англ. языка" />
+                    <h4 class="ml05 homeImagesLabels">Выбрать время англ. языка 
+                        <br />и проверить предложенияа
+                    </h4>
                 </form>
             </div>
             <div class="rightDiv">
-                <form asp-controller="Home" asp-action="GetTence">
-                    <button type="button" class="chooseButton"
-                            data-toggle="modal"
-                            data-target="#chooseTence">
-                        Выбрать время англ. языка
-                    </button>
+                <form asp-controller="Home" asp-action="GetGrammar">
+                    <img class="images-home" src="~/images/HomePage/check_grammar.jpg"
+                        type="button" class="chooseButton"
+                        data-toggle="modal"
+                        data-target="#chooseGrammar"
+                        alt="Выбрать грамматику англ. языка" />
+                    <h4 class="ml05 homeImagesLabels">Выбрать время англ. языка 
+                        <br />и проверить грамматику
+                    </h4>
                 </form>
             </div>
         </div>
@@ -36,3 +53,4 @@
 
 @await Html.PartialAsync("ChoosePartOfSpeechPartial")
 @await Html.PartialAsync("ChooseTencePartial")
+@await Html.PartialAsync("ChooseGrammarPartial")
