@@ -1,6 +1,5 @@
 ﻿@model CheckWordsViewModel;
 
-
 <div class="homePage">
 
     @await Html.PartialAsync("HomeButtonPartial")
@@ -25,11 +24,9 @@
                     
                 </div>
             </div>
-
             <div class="col-8 col-12-medium marginLeft3">
-                
+
                 <form method="post">
-                                                                               
                     <div class="displayFlexRow wrap">
                         @foreach (var item in Model.RandomWords)
                         {
@@ -43,38 +40,50 @@
                             asp-route-idSelectedAnswer="@item.Id" value="@item.EngValue" />
                         }
                     </div>
-                    <!--
-                    <div class="inCenter">
-                        <input type="submit" class="nextWord" asp-controller="" asp-action="" value="Продолжить" />
-                    </div>
-                    -->
-                    @{
-                        var goodMarksLevel = 0.0m;
-                        var badMarksLevel = 0.0m;
-
-                        if(Model.AllQuestionsNumber != 0)
-                        {
-                            goodMarksLevel = Math.Round((Model.GoodAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
-                            badMarksLevel = Math.Round((Model.BadAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
-                        }
-                    }
-                    <div class="info-box-right">
-                        <div class="grades-block">
-                            <div>Оценка:</div>
-                            <div class="grades">@Model.Grades</div>
-                        </div>
-                        <div class="flexRow space-between statistic-block">
-                            <div><p>Всего вопросов: @Model.AllQuestionsNumber</p></div>
-                            <div>
-                                <p>Правильно: @Model.GoodAnswersNumber (@goodMarksLevel %)</p>
-                            </div>
-                            <div>
-                                <p>Не правильно: @Model.BadAnswersNumber (@badMarksLevel %)</p>
-                            </div>
-                        </div>
+                </form>
+                <form asp-controller="Home" asp-action="WordDetails"
+                          asp-route-wordId="@Model.IndexOfCheckedWord">
+                    <div type="button" class="promptDiv"
+                            data-toggle="modal"
+                            data-target="#answerCard">
+                        <h4>Подсказка*</h4>
                     </div>
                 </form>
-              </div>
+                <!--
+                <div class="inCenter">
+                    <input type="submit" class="nextWord" asp-controller="" asp-action="" value="Продолжить" />
+                </div>
+                -->
+                @{
+                    var goodMarksLevel = 0.0m;
+                    var badMarksLevel = 0.0m;
+
+                    if(Model.AllQuestionsNumber != 0)
+                    {
+                        goodMarksLevel = Math.Round((Model.GoodAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
+                        badMarksLevel = Math.Round((Model.BadAnswersNumber * 100.0m / Model.AllQuestionsNumber), 2);
+                    }
+                }
+                <div class="info-box-right3">
+                    <div class="grades-block">
+                        <div>Оценка:</div>
+                        <div class="grades">@Model.Grades</div>
+                    </div>
+                    <div class="flexRow space-between statistic-block">
+                        <div><p>Всего вопросов: @Model.AllQuestionsNumber</p></div>
+                        <div>
+                            <p>Правильно: @Model.GoodAnswersNumber (@goodMarksLevel %)</p>
+                        </div>
+                        <div>
+                            <p>Не правильно: @Model.BadAnswersNumber (@badMarksLevel %)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
+@if(Model.IndexOfCheckedWord != 0)
+{
+    @await Html.PartialAsync("AnswerCardPartial", Model.RandomWords.FirstOrDefault(x => x.Id == Model.IndexOfCheckedWord))
+}

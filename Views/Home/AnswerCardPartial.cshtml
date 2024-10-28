@@ -1,0 +1,37 @@
+﻿@model Word
+
+<div class="modal fade" id="answerCard" tabindex="-1" role="dialog" aria-labelledby="answerCardLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="answerCardLabel">Выберите часть речи</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form asp-controller="Home" asp-action="CheckWords">
+                    <div class="form-group">
+                        <label class="formLabel" asp-for="EngValue"></label>
+                        <input type="text" asp-for="EngValue"/>
+                    </div> 
+                    <div class="form-group">
+                        <label class="formLabel" asp-for="Transcription"></label>
+                        <input type="text" asp-for="Transcription" />
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel" asp-for="RusValue"></label>
+                        <input type="text" asp-for="RusValue" />
+                    </div>
+                    <div class="form-group">
+                        <label class="formLabel" asp-for="PartOfSpeech"></label>
+                        <input type="text" asp-for="PartOfSpeech" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

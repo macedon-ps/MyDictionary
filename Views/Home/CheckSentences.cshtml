@@ -28,27 +28,27 @@
             <div class="col-8 col-12-medium marginLeft3">
 
                 <form method="post">
-                    <div class="card leftPadCard">
-                        @Model.RandomSentence.EngValue
+                    <div id="blurElement" class="cardBlur" onclick="disBlur()">
+                        <div class="card leftPadCard">
+                            @Model.RandomSentence.EngValue
+                        </div>
                     </div>
                     <div class="inCenter">
-                        <input type="submit" class="nextWord" asp-controller="Home"
-                        asp-action="CheckSentences"
-                        asp-route-allQuestion="@Model.AllQuestionsNumber"
-                        asp-route-goodAnswers="@Model.GoodAnswersNumber"
-                        asp-route-badAnswers="@Model.BadAnswersNumber"
-                        asp-route-grades="@Model.Grades"
-                        asp-route-mark="good"
-                        value="correct answer" />
+                        <input type="submit" class="nextWord" 
+                            asp-controller="Home" asp-action="CheckSentences"
+                            asp-route-allQuestion="@Model.AllQuestionsNumber" 
+                            asp-route-goodAnswers="@Model.GoodAnswersNumber" 
+                            asp-route-badAnswers="@Model.BadAnswersNumber"
+                            asp-route-grades="@Model.Grades" 
+                            asp-route-mark="good" value="correct answer" />
                         <span class="betweenButtons"></span>
-                        <input type="submit" class="nextWord" asp-controller="Home"
-                        asp-action="CheckSentences"
-                        asp-route-allQuestion="@Model.AllQuestionsNumber"
-                        asp-route-goodAnswers="@Model.GoodAnswersNumber"
-                        asp-route-badAnswers="@Model.BadAnswersNumber"
-                        asp-route-grades="@Model.Grades"
-                        asp-route-mark="bad"
-                        value="uncorrect answer" />
+                        <input type="submit" class="nextWord" 
+                            asp-controller="Home" asp-action="CheckSentences"
+                            asp-route-allQuestion="@Model.AllQuestionsNumber" 
+                            asp-route-goodAnswers="@Model.GoodAnswersNumber" 
+                            asp-route-badAnswers="@Model.BadAnswersNumber"
+                            asp-route-grades="@Model.Grades" 
+                            asp-route-mark="bad" value="uncorrect answer" />
                     </div>
                     @{
                         var goodMarksLevel = 0.0m;
@@ -80,3 +80,9 @@
         </div>
     </div>
 </div>
+<script>
+    function disBlur(){
+        let element = document.getElementById("blurElement");
+        element.style.filter = "blur(0)";
+    }
+</script>

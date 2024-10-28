@@ -269,6 +269,9 @@ section:last-child, article:last-child {
 .marginLeft3{
 	margin-left: 3em;
 }
+.cardBlur{
+	filter: blur(7px);
+}
 .info-block {
 	background-color: #99cc47;
 	padding: 1em;
@@ -290,8 +293,8 @@ section:last-child, article:last-child {
 	padding: 1em;
 	border-radius: 10px;
 }
-.info-box-left, .info-box-right, 
-.info-box-right2 {
+.info-box-left, .info-box-right,
+.info-box-right2, .info-box-right3 {
 	padding: 0.5em;
 	border: solid 1px green;
 	border-radius: 10px;
@@ -308,6 +311,9 @@ section:last-child, article:last-child {
 }
 .info-box-right2 {
 	margin: 2em auto 0;
+}
+.info-box-right3 {
+	margin: 2.8em auto 0;
 }
 .iconLink {
 	display: flex;
@@ -2303,10 +2309,20 @@ section:last-child, article:last-child {
 	text-align: center;
 	margin-left: 0.5em;
 }
-.inCenter{
-	display:flex;
-	justify-content:center;
-	margin-top:2em;
+.promptDiv {
+	display: inline-block;
+	padding: 10px 15px;
+	color: white;
+	background-color: #709437;
+	text-decoration: none;
+	border-radius: 10px;
+	text-align: center;
+	margin-top: 1em;
+}
+.inCenter {
+	display: flex;
+	justify-content: center;
+	margin-top: 2em;
 }
 .nextWord {
 	background-color: #8bb842;

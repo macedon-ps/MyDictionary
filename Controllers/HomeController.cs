@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyDictionary.DBContext;
 using MyDictionary.Interfaces;
+using MyDictionary.Models;
 using MyDictionary.Utils;
 using MyDictionary.ViewModels;
 using System.Text.Json;
@@ -268,6 +269,18 @@ namespace MyDictionary.Controllers
         public IActionResult EditTask()
         {
             return View();
+        }
+
+        /// <summary>
+        /// метод вывода полной информации о слове
+        /// </summary>
+        /// <param name="word">слово</param>
+        /// <returns></returns>
+        public IActionResult WordDetails(int wordId)
+        {
+            var word = _words.GetWordById(wordId);
+
+            return PartialView("AnswerCardPartial", word);
         }
     }
 }
