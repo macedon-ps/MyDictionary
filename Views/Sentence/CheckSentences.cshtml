@@ -35,7 +35,7 @@
                     </div>
                     <div class="inCenter">
                         <input type="submit" class="nextWord" 
-                            asp-controller="Home" asp-action="CheckSentences"
+                            asp-controller="Sentence" asp-action="CheckSentences"
                             asp-route-allQuestion="@Model.AllQuestionsNumber" 
                             asp-route-goodAnswers="@Model.GoodAnswersNumber" 
                             asp-route-badAnswers="@Model.BadAnswersNumber"
@@ -43,7 +43,7 @@
                             asp-route-mark="good" value="correct answer" />
                         <span class="betweenButtons"></span>
                         <input type="submit" class="nextWord" 
-                            asp-controller="Home" asp-action="CheckSentences"
+                            asp-controller="Sentence" asp-action="CheckSentences"
                             asp-route-allQuestion="@Model.AllQuestionsNumber" 
                             asp-route-goodAnswers="@Model.GoodAnswersNumber" 
                             asp-route-badAnswers="@Model.BadAnswersNumber"

@@ -30,7 +30,7 @@
                     <div class="displayFlexRow wrap">
                         @foreach (var item in Model.RandomWords)
                         {
-                            <input type="submit" class="card" asp-controller="Home" 
+                            <input type="submit" class="card" asp-controller="Word" 
                             asp-action="CheckWords"
                             asp-route-idWord="@Model.IndexOfCheckedWord"
                             asp-route-allQuestion="@Model.AllQuestionsNumber"
@@ -41,7 +41,7 @@
                         }
                     </div>
                 </form>
-                <form asp-controller="Home" asp-action="WordDetails"
+                <form asp-controller="Word" asp-action="WordDetails"
                           asp-route-wordId="@Model.IndexOfCheckedWord">
                     <div type="button" class="promptDiv"
                             data-toggle="modal"

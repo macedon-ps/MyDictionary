@@ -14,6 +14,7 @@ namespace MyDictionary
             // Add services to the container.
             builder.Services.AddControllersWithViews();
             builder.Services.AddTransient<IWordsInterface, WordsRepository>();
+            builder.Services.AddTransient<ISentenceInterface, SentencesRepository>();
 
             builder.Services.AddDistributedMemoryCache();// добавляем сервисы сессии
             builder.Services.AddSession(options =>
