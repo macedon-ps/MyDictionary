@@ -89,5 +89,10 @@ namespace MyDictionary.Repository
         {
             return _dbContext.Sentences.Where(x => (int)x.Tense == numberOfTence).ToList();
         }
+
+        public Sentence GetSentenceById(int sentenceId)
+        {
+            return _dbContext.Sentences.FirstOrDefault(x => x.Id == sentenceId) ?? new Sentence();
+        }
     }
 }

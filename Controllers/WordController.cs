@@ -50,7 +50,11 @@ namespace MyDictionary.Controllers
         /// <returns></returns>
         public IActionResult DeleteWord(int wordId) 
         {
-            return View();
+            var word = _words.GetWordById(wordId);
+            _dbContext.Words.Remove(word);
+            _dbContext.SaveChanges();
+
+            return View("SuccessDelete", word);
         }
 
         /// <summary>

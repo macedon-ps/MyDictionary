@@ -65,7 +65,7 @@
                     <h2>2. Редактировать/удалить предложение:</h2>
                     <h4 class="mt05">Наберите предложение полностью или его часть</h4>
 
-                    <form asp-controller="Sentence" asp-action="EditSentence" method="get">
+                    <form asp-controller="Sentence" asp-action="GetSentencesQueryResult" method="get">
                         <div class="displayFlexCol">
                             <div asp-validation-summary="All"></div>
                             <div class="input-group mb05">
@@ -107,7 +107,7 @@
                     <h2>2. Редактировать/удалить правило грамматики:</h2>
                     <h4 class="mt05">Наберите правило грамматики полностью или его часть</h4>
 
-                    <form asp-controller="Grammar" asp-action="EditGrammar" method="get">
+                    <form asp-controller="Grammar" asp-action="GetGrammarsQueryResult" method="get">
                         <div class="displayFlexCol">
                             <div asp-validation-summary="All"></div>
                             <div class="input-group mb05">

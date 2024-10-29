@@ -1,0 +1,32 @@
+﻿@model List<Sentence>
+<div class="editPage">
+
+    @await Html.PartialAsync("EditButtonPartial")
+
+    <div class="editHeader">
+
+        <h2 class="title">Результаты поиска: </h2>
+        <hr class="horizontal-line" />
+
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div>
+                    <h4>Id: @item.Id  Время англ. языка: @item.Tense.ToString()</h4>
+                </div>
+                <div>
+                    <h3>@item.EngValue</h3>
+                </div>
+                <div>
+                    <h3>@item.RusValue</h3>
+                </div>
+                <div class="editDelete">
+                    <a asp-controller="Sentence" asp-action="EditSentence" asp-route-sentenceId="@item.Id">редактировать</a>
+                    <a asp-controller="Sentence" asp-action="DeleteSentence" asp-route-sentenceId="@item.Id">удалить</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+

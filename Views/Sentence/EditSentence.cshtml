@@ -1,0 +1,43 @@
+﻿@model Sentence
+
+<div class="editPage">
+
+    @await Html.PartialAsync("EditButtonPartial")
+
+    <div class="editHeader">
+
+        <h1 class="title">Create, edit, delete sentences</h1>
+        <hr class="horizontal-line" />
+
+        <div class="displayFlex2">
+            <div class="flexColumn">
+
+                <form asp-controller="Sentence" asp-action="SaveSentence" method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div asp-validation-summary="All"></div>
+                    <div class="card">
+                        <label asp-for="EngValue"></label>
+                        <input type="text" asp-for="EngValue" />
+                        <span asp-validation-for="EngValue"></span>
+                    </div>
+                    <div class="card">
+                        <label asp-for="RusValue"></label>
+                        <input type="text" asp-for="RusValue" />
+                        <span asp-validation-for="RusValue"></span>
+                    </div>
+                    <div class="edit-box-left inline">
+                        <label asp-for="Tense"></label>
+                        <select asp-for="Tense"
+                                asp-items="Html.GetEnumSelectList<Tences>()">
+                        </select>
+                        <span asp-validation-for="Tense"></span>
+                    </div>
+                    <div class="card">
+                        <input type="submit" class="submitButton" id="submit" value="Сохранить" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
